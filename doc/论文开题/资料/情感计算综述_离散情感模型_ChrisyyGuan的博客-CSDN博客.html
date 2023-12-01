@@ -1,0 +1,2207 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://blog.csdn.net/ChristopherI/article/details/130849281"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="report" content='{"spm":"1001.2101","extra":{"titAb":"control","lvab":"t_1","titAb2":"t_1"},"pid":"blog"}'>
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <meta name="applicable-device" content="pc">
+    <link  href="https://g.csdnimg.cn/static/logo/favicon32.ico"  rel="shortcut icon" type="image/x-icon" />
+    <title>情感计算综述_离散情感模型_ChrisyyGuan的博客-CSDN博客</title>
+    <script>
+      (function(){ 
+        var el = document.createElement("script"); 
+        el.src = "https://s3a.pstatp.com/toutiao/push.js?1abfa13dfe74d72d41d83c86d240de427e7cac50c51ead53b2e79d40c7952a23ed7716d05b4a0f683a653eab3e214672511de2457e74e99286eb2c33f4428830"; 
+        el.id = "ttzz"; 
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(el, s);
+      })(window)
+    </script>
+        <meta name="keywords" content="离散情感模型">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"离散情感模型"}'>
+    <meta name="description" content="文章浏览阅读512次。情感计算主要分为单模态和多模态的研究，其中单模态包括文本SA, 音频ER，视觉ER和基于生理信号的ER；多模态包括多物理模态融合、多生理模态融合和物理-生理模态融合。_离散情感模型">
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-4cf7875a8c.min.css">
+    <script type="application/ld+json">{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"https://blog.csdn.net/ChristopherI/article/details/130849281","appid":"1638831770136827","pubDate":"2023-05-24T16:04:10","title":"情感计算综述_离散情感模型_ChrisyyGuan的博客-CSDN博客","upDate":"2023-06-27T18:24:22"}</script>
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-sea/skin-sea-d3a08c2048.min.css">
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var isCorporate = false;//注释删除enterprise
+        var username =  "ChristopherI";
+        var skinImg = "white";
+        var blog_address = "https://blog.csdn.net/ChristopherI";
+        var currentUserName = "bluelaserpointer";
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/ChristopherI/article/details/130849281";
+        var blogUrl = "https://blog.csdn.net/";
+        var avatar = "https://profile-avatar.csdnimg.cn/3b9c93f5e94146b183627c1eb60d470e_christopheri.jpg!1";
+        var articleTitle = "情感计算综述";
+        var articleDesc = "文章浏览阅读512次。情感计算主要分为单模态和多模态的研究，其中单模态包括文本SA, 音频ER，视觉ER和基于生理信号的ER；多模态包括多物理模态融合、多生理模态融合和物理-生理模态融合。_离散情感模型";
+        var articleTitles = "情感计算综述_离散情感模型_ChrisyyGuan的博客-CSDN博客";
+        var nickName = "ChrisyyGuan";
+        var articleDetailUrl = "https://blog.csdn.net/ChristopherI/article/details/130849281";
+        if(window.location.host.split('.').length == 3) {
+            blog_address = blogUrl + username;
+        }
+        var skinStatus = "White";
+        var robotModule = '';
+        var robotModuleJs = '';
+        var blogStaticHost = "https://csdnimg.cn/release/blogv2/"
+        var mallTestStyle = "control"
+    </script>
+        <meta name="toolbar" content='{"type":"0","fixModel":"1"}'>
+    <script src="https://g.csdnimg.cn/??fixed-sidebar/1.1.7/fixed-sidebar.js" type="text/javascript"></script>
+    <script src='//g.csdnimg.cn/common/csdn-report/report.js' type='text/javascript'></script>
+    <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+    <script src="https://dup.baidustatic.com/js/ds.js"></script>
+</head>
+  <body class="nodata " style="">
+    <div id="toolbarBox" style="min-height: 48px;"></div>
+        <script>
+            var toolbarSearchExt = '{"landingWord":["离散情感模型"],"queryWord":"","tag":["人工智能"],"title":"情感计算综述"}';
+        </script>
+    <script src="https://g.csdnimg.cn/common/csdn-toolbar/csdn-toolbar.js" type="text/javascript"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" />
+    <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css" />
+    <script src="https://g.csdnimg.cn/lib/swiper/6.0.4/js/swiper.js" async></script>
+    <script>
+      var articleId = 130849281;
+      var commentscount = 1;
+      var curentUrl = "https://blog.csdn.net/ChristopherI/article/details/130849281";
+      var myUrl = "https://my.csdn.net/";
+        var highlight = ["人工智能","情感","模型","离散","计算","综述"];//高亮数组
+        var isRecommendModule = true;
+          var isBaiduPre = true;
+          var baiduCount = 2;
+          var setBaiduJsCount = 10;
+      var share_card_url = "https://app-blog.csdn.net/share?article_id=130849281&username=ChristopherI"
+      var articleType = 1;
+      var baiduKey = "离散情感模型";
+      var copyPopSwitch = true;
+      var needInsertBaidu = true;
+      var recommendRegularDomainArr = ["blog.csdn.net/.+/article/details/","download.csdn.net/download/","edu.csdn.net/course/detail/","ask.csdn.net/questions/","bbs.csdn.net/topics/","www.csdn.net/gather_.+/"]
+      var codeStyle = "";
+      var baiduSearchType = "baidulandingword";
+      var sharData = "{\"hot\":[{\"id\":1,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a5f4260710904e538002a6ab337939b3.png\"},{\"id\":2,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/188b37199a2c4b74b1d9ffc39e0d52de.png\"},{\"id\":3,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/14ded358b631444581edd98a256bc5af.png\"},{\"id\":4,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1470f23a770444d986ad551b9c33c5be.png\"},{\"id\":5,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c329f5181dc74f6c9bd28c982bb9f91d.png\"},{\"id\":6,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ccd8a3305e81460f9c505c95b432a65f.png\"},{\"id\":7,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bc89d8283389440d97fc4d30e30f45e1.png\"},{\"id\":8,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/452d485b4a654f5592390550d2445edf.png\"},{\"id\":9,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f8b9939db2ed474a8f43a643015fc8b7.png\"},{\"id\":10,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6de8864187ab4ed3b1db0856369c36ff.png\"},{\"id\":11,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/673cc3470ff74072acba958dc0c46e2d.png\"},{\"id\":12,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/930c119760ac4491804db80f9c6d4e3f.png\"},{\"id\":13,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/15e6befb05a24233bc2b65e96aa8d972.png\"},{\"id\":14,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2075fd6822184b95a41e214de4daec13.png\"},{\"id\":15,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/859b1552db244eb6891a809263a5c657.png\"},{\"id\":16,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/0be2f920f1f74290a98921974a9613fd.png\"},{\"id\":17,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2e97e00b43f14afab494ea55ef3f4a6e.png\"},{\"id\":18,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ff4ab252f46e444686f5135d6ebbfec0.png\"},{\"id\":19,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ae029bbe99564e79911657912d36524f.png\"},{\"id\":20,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b3ece39963de440388728e9e7b9bf427.png\"},{\"id\":21,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6f14651a99ba486e926d63b6fa692997.png\"},{\"id\":22,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/83ceddf050084875a341e32dcceca721.png\"},{\"id\":23,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b90368b8fd5d4c6c8c79a707d877cf7c.png\"},{\"id\":24,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/aeffae14ecf14e079b2616528c9a393b.png\"},{\"id\":25,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c5a06b5a13d44d16bed868fc3384897a.png\"},{\"id\":26,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/08b697658b844b318cea3b119e9541ef.png\"},{\"id\":27,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/68ccb0b8d09346ac961d2b5c1a8c77bf.png\"},{\"id\":28,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a2227a247e37418cbe0ea972ba6a859b.png\"},{\"id\":29,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/3a42825fede748f9993e5bb844ad350d.png\"},{\"id\":30,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/8882abc1dd484224b636966ea38555c3.png\"},{\"id\":31,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/4f6a5f636a3e444d83cf8cc06d87a159.png\"},{\"id\":32,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1953ef79c56b4407b78d7181bdff11c3.png\"},{\"id\":33,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c04a2a4f772948ed85b5b0380ed36287.png\"},{\"id\":34,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5b4fecd05091405ea04d8c0f53e9f2c7.png\"},{\"id\":35,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b89f576d700344e280d6ceb2a66c2420.png\"},{\"id\":36,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1c65780e11804bbd9971ebadb3d78bcf.png\"},{\"id\":37,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d590db2055f345db9706eb68a7ec151a.png\"},{\"id\":38,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fe602f80700b4f6fb3c4a9e4c135510e.png\"},{\"id\":39,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/39ff2fcd31e04feba301a071976a0ba7.png\"},{\"id\":40,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f9b61b3d113f436b828631837f89fb39.png\"},{\"id\":41,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/df1aca5f610c4ad48cd16da88c9c8499.png\"},{\"id\":42,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d7acf73a1e6b41399a77a85040e10961.png\"},{\"id\":43,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b7f1b63542524b97962ff649ab4e7e23.png\"}],\"vip\":[{\"id\":1,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101150.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101154.png\"},{\"id\":2,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101204.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101208.png\"},{\"id\":3,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101211.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101215.png\"},{\"id\":4,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101218.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101220.png\"},{\"id\":5,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101223.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101226.png\"},{\"id\":6,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100635.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100639.png\"},{\"id\":7,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100642.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100644.png\"},{\"id\":8,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100647.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100649.png\"},{\"id\":9,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100652.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100655.png\"},{\"id\":10,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/55de67481fde4b04b97ad78f11fe369a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bb2418fb537e4d78b10d8765ccd810c5.png\"},{\"id\":11,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/579c713394584d128104ef1044023954.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f420d9fbcf5548079d31b5e809b6d6cd.png\"},{\"id\":12,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/75b7f3155ba642f5a4cc16b7baf44122.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a9030f5877be401f8b340b80b0d91e64.png\"},{\"id\":13,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0903d33cafa54934be3780aa54ae958d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2cd8c8929f5a42fca5da2a0aeb456203.png\"},{\"id\":14,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/949fd7c22884439fbfc3c0e9c3b8dee7.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/dafbea9bd9eb4f3b962b48dc41657f89.png\"},{\"id\":15,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4119cfddd71d4e6a8a27a18dbb74d90e.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c56310c8b6384d9e85388e4e342ce508.png\"},{\"id\":16,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/121575274da142bcbbbbc2e8243dd411.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5013993de06542f881018bb9abe2edf7.png\"},{\"id\":17,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4d97aa6dd4fe4f09a6bef5bdf8a6abcd.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/76f23877b6ad4066ad45ce8e31b4b977.png\"},{\"id\":18,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdb619daf21b4c829de63b9ebc78859d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a1abe5d27a5441f599adfe662f510243.png\"},{\"id\":19,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/676b7707bb11410f8f56bc0ed2b2345c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/7ac5b467fbf24e1d8c2de3f3332c4f54.png\"},{\"id\":20,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0becb8cc227e4723b765bdd69a20fd4a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdec85b26091486b9a89d0b8d45c3749.png\"},{\"id\":21,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/1a6c06235ad44941b38c54cbc25a370c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/410a06cda2d44b0c84578f88275caf70.png\"}],\"map\":{\"hot\":\"热门\",\"vip\":\"VIP\"}}";
+      
+      var canRead = true;
+      var blogMoveHomeArticle = false;
+      var showSearchText = "";
+      var articleSource = 1;
+      var articleReport = '{"spm":"1001.2101","extra":{"titAb":"control","lvab":"t_1","titAb2":"t_1"},"pid":"blog"}';
+        var baiduSearchChannel = 'pc_relevant'
+        var baiduSearchIdentification = '.235^v38^pc_relevant_default_base3'
+        var distRequestId = '1700037000095_20491'
+        var initRewardObject = {
+          giver: "bluelaserpointer",
+          anchor: "ChristopherI",
+          articleId: "130849281",
+          sign: "b3ebf1923bddca35e2fc136d334014a8",
+        }
+        var isLikeStatus = false;
+        var isUnLikeStatus = false;
+        var studyLearnWord = "";
+        var isCurrentUserVip = false;
+        var contentViewsHeight = 0;
+        var contentViewsCount = 0;
+        var contentViewsCountLimit = 5;
+        var isShowConcision = true
+      var isCookieConcision = false
+      var isHasDirectoryModel = false
+      var isShowSideModel = false
+      var isShowDirectoryModel = true
+      function getCookieConcision(sName){
+        var allCookie = document.cookie.split("; ");
+        for (var i=0; i < allCookie.length; i++){
+          var aCrumb = allCookie[i].split("=");
+          if (sName == aCrumb[0])
+            return aCrumb[1];
+        }
+        return null;
+      }
+      if (getCookieConcision('blog_details_concision') && getCookieConcision('blog_details_concision') == 0){
+        isCookieConcision = true
+        isShowSideModel = true
+        isShowDirectoryModel = false
+      }
+    </script>
+        <div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;">
+          <div class="container clearfix container-concision" id="mainBox">
+          <script>
+          if (!isCookieConcision) {
+            $('.main_father').removeClass('mainfather-concision')
+            $('.main_father .container').removeClass('container-concision')
+          } else {
+            $('#mainBox').css('margin-right', '0')
+          }
+          </script>
+          <main>
+<script type="text/javascript">
+    var resourceId =  "";
+    function getQueryString(name) {   
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+      var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+      if( r != null ) return decodeURIComponent( r[2] ); return '';   
+    }
+    function stripscript(s){ 
+      var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%]") 
+      var rs = ""; 
+      for (var i = 0; i < s.length; i++) { 
+        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+      } 
+      return rs;
+    }
+    var blogHotWords = stripscript(getQueryString('utm_term')).length > 1 ? stripscript(getQueryString('utm_term')) : ''
+</script>
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article" id="articleContentId">情感计算综述</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt="">
+                    <div class="bar-content">
+                      <a class="follow-nickName " href="https://blog.csdn.net/ChristopherI" target="_blank" rel="noopener" title="ChrisyyGuan">ChrisyyGuan</a>
+                    <img class="article-time-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCurrentTime2.png" alt="">
+                        <span class="time">于&nbsp;2023-06-27 18:24:22&nbsp;发布</span>
+                   <div class="read-count-box">
+                      <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes2.png" alt="">
+                      <span class="read-count">阅读量512</span>
+                      <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                          <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt="">
+                          <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt="">
+                          <span class="name">收藏</span>
+                          <span class="get-collection">
+                              8
+                          </span>
+                      </a>
+                      <div class="read-count-box is-like">
+                        <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt="">
+                        <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt="">
+                        <span class="read-count" id="blog-digg-num">点赞数
+                            1
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blog-tags-box">
+                    <div class="tags-box artic-tag-box">
+                            <span class="label">分类专栏：</span>
+                                <a class="tag-link" href="https://blog.csdn.net/christopheri/category_12361454.html" target="_blank" rel="noopener">情感计算</a>
+                            <span class="label">文章标签：</span>
+                                <a rel="nofollow" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"人工智能","ab":"new","extra":"{\"searchword\":\"人工智能\"}"}' class="tag-link" href="https://so.csdn.net/so/search/s.do?q=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank" rel="noopener">人工智能</a>
+                    </div>
+                </div>
+                <div class="slide-content-box">
+                    <div class="article-copyright">
+                        <div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+                        <div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/ChristopherI/article/details/130849281" target="_blank">https://blog.csdn.net/ChristopherI/article/details/130849281</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="operating">
+                    <a class="href-article-edit slide-toggle">版权</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="blogHuaweiyunAdvert"></div>
+        <div id="blogColumnPayAdvert">
+            <div class="column-group">
+                <div class="column-group-item column-group0 column-group-item-one">
+                    <div class="item-l">
+                        <a class="item-target" href="https://blog.csdn.net/christopheri/category_12361454.html" target="_blank" title="情感计算"
+                        data-report-view='{"spm":"1001.2101.3001.6332"}'
+                        data-report-click='{"spm":"1001.2101.3001.6332"}'>
+                            <img class="item-target" src="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="">
+                            <span class="title item-target">
+                                <span>
+                                <span class="tit">情感计算</span>
+                                    <span class="dec">专栏收录该内容</span>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="item-m">
+                        <span>1 篇文章</span>
+                        <span>0 订阅</span>
+                    </div>
+                    <div class="item-r">
+                            <a class="item-target article-column-bt articleColumnFreeBt" data-id="12361454">订阅专栏</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-044f2cf1dc.css">
+                <div id="content_views" class="htmledit_views">
+                    <p id="main-toc"><strong>目录</strong></p> 
+<p id="%C2%A0%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D-toc" style="margin-left:0px;"><a href="#%C2%A0%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"> 一、背景介绍</a></p> 
+<p id="%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E4%BF%A1%E5%8F%B7-toc" style="margin-left:40px;"><a href="#%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E4%BF%A1%E5%8F%B7">基于物理信号</a></p> 
+<p id="%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7-toc" style="margin-left:40px;"><a href="#%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7">基于生理信号</a></p> 
+<p id="%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7%E8%9E%8D%E5%90%88-toc" style="margin-left:40px;"><a href="#%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7%E8%9E%8D%E5%90%88">物理-生理信号融合</a></p> 
+<p id="%E4%BA%8C%E3%80%81%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B-toc" style="margin-left:0px;"><a href="#%E4%BA%8C%E3%80%81%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">二、情感模型</a></p> 
+<p id="2.1%20%E7%A6%BB%E6%95%A3%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B-toc" style="margin-left:40px;"><a href="#2.1%20%E7%A6%BB%E6%95%A3%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">2.1 离散情感模型</a></p> 
+<p id="2.2%20%E7%BB%B4%E5%BA%A6%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B-toc" style="margin-left:40px;"><a href="#2.2%20%E7%BB%B4%E5%BA%A6%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">2.2 维度情感模型</a></p> 
+<p id="%C2%A0%E4%B8%89%E3%80%81%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:0px;"><a href="#%C2%A0%E4%B8%89%E3%80%81%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE%E5%BA%93"> 三、情感计算数据库</a></p> 
+<p id="3.1%20%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:40px;"><a href="#3.1%20%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%BA%93">3.1 文本数据库</a></p> 
+<p id="3.2%C2%A0%E8%AF%AD%E9%9F%B3%2F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:40px;"><a href="#3.2%C2%A0%E8%AF%AD%E9%9F%B3%2F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE%E5%BA%93">3.2 语音/音频数据库</a></p> 
+<p id="3.3%20%E8%A7%86%E8%A7%89%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:40px;"><a href="#3.3%20%E8%A7%86%E8%A7%89%E6%95%B0%E6%8D%AE%E5%BA%93">3.3 视觉数据库</a></p> 
+<p id="3.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:80px;"><a href="#3.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E6%95%B0%E6%8D%AE%E5%BA%93">3.3.1 面部表情数据库</a></p> 
+<p id="3.3.2%20%E8%82%A2%E4%BD%93%E5%8A%A8%E4%BD%9C%E6%83%85%E6%84%9F%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:80px;"><a href="#3.3.2%20%E8%82%A2%E4%BD%93%E5%8A%A8%E4%BD%9C%E6%83%85%E6%84%9F%E6%95%B0%E6%8D%AE%E5%BA%93">3.3.2 肢体动作情感数据库</a></p> 
+<p id="%C2%A03.4%20%E7%94%9F%E7%90%86%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:40px;"><a href="#%C2%A03.4%20%E7%94%9F%E7%90%86%E6%95%B0%E6%8D%AE%E5%BA%93"> 3.4 生理数据库</a></p> 
+<p id="%C2%A03.5%20%E5%A4%9A%E6%A8%A1%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93-toc" style="margin-left:40px;"><a href="#%C2%A03.5%20%E5%A4%9A%E6%A8%A1%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93"> 3.5 多模态数据库</a></p> 
+<p id="%C2%A0%E5%9B%9B%E3%80%81%E5%8D%95%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:0px;"><a href="#%C2%A0%E5%9B%9B%E3%80%81%E5%8D%95%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB"> 四、单模态情感识别</a></p> 
+<p id="4.1%20%E6%96%87%E6%9C%AC%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90(TSA)-toc" style="margin-left:40px;"><a href="#4.1%20%E6%96%87%E6%9C%AC%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%28TSA%29">4.1 文本情感分析(TSA)</a></p> 
+<p id="%C2%A04.1.1%20ML-based%20TSA-toc" style="margin-left:80px;"><a href="#%C2%A04.1.1%20ML-based%20TSA"> 4.1.1 ML-based TSA</a></p> 
+<p id="4.1.2%20DL-based%20TSA-toc" style="margin-left:80px;"><a href="#4.1.2%20DL-based%20TSA">4.1.2 DL-based TSA</a></p> 
+<p id="4.2%20%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB(SER)-toc" style="margin-left:40px;"><a href="#4.2%20%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB%28SER%29">4.2 音频情感识别(SER)</a></p> 
+<p id="4.2.1%20ML-based%20SER-toc" style="margin-left:80px;"><a href="#4.2.1%20ML-based%20SER">4.2.1 ML-based SER</a></p> 
+<p id="4.2.2%C2%A0DL-based%20SER-toc" style="margin-left:80px;"><a href="#4.2.2%C2%A0DL-based%20SER">4.2.2 DL-based SER</a></p> 
+<p id="4.3%20%E8%A7%86%E8%A7%89%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:40px;"><a href="#4.3%20%E8%A7%86%E8%A7%89%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.3 视觉情感识别</a></p> 
+<p id="4.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E8%AF%86%E5%88%AB-toc" style="margin-left:80px;"><a href="#4.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E8%AF%86%E5%88%AB">4.3.1 面部表情识别</a></p> 
+<p id="4.3.1.1%C2%A0ML-based%20FER-toc" style="margin-left:120px;"><a href="#4.3.1.1%C2%A0ML-based%20FER">4.3.1.1 ML-based FER</a></p> 
+<p id="4.3.2%20%E8%BA%AB%E4%BD%93%E5%A7%BF%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:80px;"><a href="#4.3.2%20%E8%BA%AB%E4%BD%93%E5%A7%BF%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.3.2 身体姿态情感识别</a></p> 
+<p id="4.3.2.1%20ML-based%20EBGR-toc" style="margin-left:120px;"><a href="#4.3.2.1%20ML-based%20EBGR">4.3.2.1 ML-based EBGR</a></p> 
+<p id="4.3.2.2%20DL-based%20EBGR-toc" style="margin-left:120px;"><a href="#4.3.2.2%20DL-based%20EBGR">4.3.2.2 DL-based EBGR</a></p> 
+<p id="4.4%C2%A0%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E7%9A%84%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:40px;"><a href="#4.4%C2%A0%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E7%9A%84%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.4 基于生理的情感识别</a></p> 
+<p id="4.4.1%20EEG-based%20emotion%20recognition-toc" style="margin-left:80px;"><a href="#4.4.1%20EEG-based%20emotion%20recognition">4.4.1 EEG-based emotion recognition</a></p> 
+<p id="4.4.1.1%20ML-based%20EEG%20emotion%20recognition-toc" style="margin-left:120px;"><a href="#4.4.1.1%20ML-based%20EEG%20emotion%20recognition">4.4.1.1 ML-based EEG emotion recognition</a></p> 
+<p id="4.4.1.2%20DL-based%20EEG%20emotion%20recognition-toc" style="margin-left:120px;"><a href="#4.4.1.2%20DL-based%20EEG%20emotion%20recognition">4.4.1.2 DL-based EEG emotion recognition</a></p> 
+<p id="4.4.2%20ECG-based%20emotion%20recognition-toc" style="margin-left:80px;"><a href="#4.4.2%20ECG-based%20emotion%20recognition">4.4.2 ECG-based emotion recognition</a></p> 
+<p id="4.4.2.1%20ML-based%20ECG%20emotion%20recognition-toc" style="margin-left:120px;"><a href="#4.4.2.1%20ML-based%20ECG%20emotion%20recognition">4.4.2.1 ML-based ECG emotion recognition</a></p> 
+<p id="4.4.2.2%20DL-based%C2%A0ECG%20emotion%20recognition-toc" style="margin-left:120px;"><a href="#4.4.2.2%20DL-based%C2%A0ECG%20emotion%20recognition">4.4.2.2 DL-based ECG emotion recognition</a></p> 
+<p id="%E4%BA%94%E3%80%81%C2%A0%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90-toc" style="margin-left:0px;"><a href="#%E4%BA%94%E3%80%81%C2%A0%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">五、 多模态情感分析</a></p> 
+<p id="5.1%20%E5%A4%9A%E7%89%A9%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E8%BF%9B%E8%A1%8C%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90-toc" style="margin-left:40px;"><a href="#5.1%20%E5%A4%9A%E7%89%A9%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E8%BF%9B%E8%A1%8C%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.1 多物理模态融合进行情感分析</a></p> 
+<p id="%C2%A05.1.1%20%E8%A7%86%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:80px;"><a href="#%C2%A05.1.1%20%E8%A7%86%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB"> 5.1.1 视音频情感识别</a></p> 
+<p id="5.1.2%20%E6%96%87%E6%9C%AC%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:80px;"><a href="#5.1.2%20%E6%96%87%E6%9C%AC%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">5.1.2 文本音频情感识别</a></p> 
+<p id="5.1.3%20%E8%A7%86-%E5%90%AC-%E6%96%87%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB-toc" style="margin-left:80px;"><a href="#5.1.3%20%E8%A7%86-%E5%90%AC-%E6%96%87%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">5.1.3 视-听-文情感识别</a></p> 
+<p id="5.2%20%E5%A4%9A%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90-toc" style="margin-left:40px;"><a href="#5.2%20%E5%A4%9A%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.2 多生理模态融合情感分析</a></p> 
+<p id="5.3%20%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E7%9A%84%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90-toc" style="margin-left:40px;"><a href="#5.3%20%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E7%9A%84%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.3 物理-生理模态融合的情感分析</a></p> 
+<p id="%E5%85%AD%E3%80%81%E8%AE%A8%E8%AE%BA-toc" style="margin-left:0px;"><a href="#%E5%85%AD%E3%80%81%E8%AE%A8%E8%AE%BA">六、讨论</a></p> 
+<p id="6.1%20%E4%B8%8D%E5%90%8C%E4%BF%A1%E5%8F%B7%E5%AF%B9%E5%8D%95%E5%B3%B0%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D-toc" style="margin-left:40px;"><a href="#6.1%20%E4%B8%8D%E5%90%8C%E4%BF%A1%E5%8F%B7%E5%AF%B9%E5%8D%95%E5%B3%B0%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">6.1 不同信号对单峰情感识别的影响</a></p> 
+<p id="6.2%20%E6%A8%A1%E6%80%81%E7%BB%84%E5%90%88%E5%8F%8A%E8%9E%8D%E5%90%88%E7%AD%96%E7%95%A5%E5%AF%B9%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E7%9A%84%E5%BD%B1%E5%93%8D-toc" style="margin-left:40px;"><a href="#6.2%20%E6%A8%A1%E6%80%81%E7%BB%84%E5%90%88%E5%8F%8A%E8%9E%8D%E5%90%88%E7%AD%96%E7%95%A5%E5%AF%B9%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E7%9A%84%E5%BD%B1%E5%93%8D">6.2 模态组合及融合策略对多模态情感分析的影响</a></p> 
+<p id="6.3%20%E5%9F%BA%E4%BA%8EML%E5%92%8C%E5%9F%BA%E4%BA%8EDL%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D-toc" style="margin-left:40px;"><a href="#6.3%20%E5%9F%BA%E4%BA%8EML%E5%92%8C%E5%9F%BA%E4%BA%8EDL%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D">6.3 基于ML和基于DL的模型对情感计算的影响</a></p> 
+<p id="6.4%20%E4%B8%80%E4%BA%9B%E6%BD%9C%E5%9C%A8%E5%9B%A0%E7%B4%A0%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D-toc" style="margin-left:40px;"><a href="#6.4%20%E4%B8%80%E4%BA%9B%E6%BD%9C%E5%9C%A8%E5%9B%A0%E7%B4%A0%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D">6.4 一些潜在因素对情感计算的影响</a></p> 
+<p id="6.5%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E5%9C%A8%E7%8E%B0%E5%AE%9E%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8-toc" style="margin-left:40px;"><a href="#6.5%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E5%9C%A8%E7%8E%B0%E5%AE%9E%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8">6.5情感计算在现实场景中的应用</a></p> 
+<p id="%E4%B8%83%E3%80%81%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E5%B1%95%E6%9C%9B-toc" style="margin-left:0px;"><a href="#%E4%B8%83%E3%80%81%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E5%B1%95%E6%9C%9B">七、未来研究展望</a></p> 
+<p>本篇综述主要参考下面这篇论文 </p> 
+<h2 id="%E2%80%8B%E7%BC%96%E8%BE%91%E8%AE%BA%E6%96%87%E9%93%BE%E6%8E%A5%E5%A6%82%E4%B8%8BA%20systematic%20review%20on%20affective%20computing%3A%20emotion%20models%2C%20databases%2C%20and%20recent%20advances%20-%20ScienceDirecthttps%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS1566253522000367%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%EF%BC%9A%E4%B8%80%E4%BA%9B%E7%BC%A9%E5%86%99"><img alt="" height="579" src="https://img-blog.csdnimg.cn/8022edc368f54dc7945fade16d2fc5c6.png" width="1179" />论文链接如下<a class="has-card" href="https://www.sciencedirect.com/science/article/pii/S1566253522000367" title="A systematic review on affective computing: emotion models, databases, and recent advances - ScienceDirect"><span class="link-card-box"><span class="link-title">A systematic review on affective computing: emotion models, databases, and recent advances - ScienceDirect</span><span class="link-link"><img alt="" class="link-link-icon" src="https://csdnimg.cn/release/blog_editor_html/release2.2.9/ckeditor/plugins/CsdnLink/icons/icon-default.png?t&#61;N4N7" />https://www.sciencedirect.com/science/article/pii/S1566253522000367</span></span></a>写在前面&#xff1a;一些缩写</h2> 
+<p> <img alt="" height="781" src="https://img-blog.csdnimg.cn/ded1d10d099f4ac5a37411cc3e6abe8b.png" width="1103" /></p> 
+<p> </p> 
+<h2 id="%C2%A0%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"> 一、背景介绍<img alt="" height="439" src="https://img-blog.csdnimg.cn/c339347aeea44b27ae0b2eb772dfe585.png" width="779" /></h2> 
+<p><strong>SA: Sentiment Analysis&#xff0c;ER: Emotion Recognition</strong></p> 
+<p></p> 
+<p>情感计算主要分为单模态和多模态的研究&#xff0c;其中单模态包括文本SA, 音频ER&#xff0c;视觉ER和基于生理信号的ER&#xff1b;多模态包括多物理模态融合、多生理模态融合和物理-生理模态融合。</p> 
+<h3 id="%E5%9F%BA%E4%BA%8E%E7%89%A9%E7%90%86%E4%BF%A1%E5%8F%B7">基于物理信号</h3> 
+<p>现有的基于物理的情感识别研究主要采用视觉、文本和音频三种方式。对于视觉形态&#xff0c;大多数研究采用了FER和FMEA&#xff0c;以及3D FER。此外&#xff0c;Noroozi等回顾了表征学习和从身体姿态开始的情绪识别&#xff0c;然后是基于语音或面部和身体姿态的多模态情绪识别。对于文本模态&#xff0c;可以根据会话中的内隐情绪来完成情感分析和情感识别。Han等人使用三种物理信号提出了基于深度学习的对抗性训练&#xff0c;旨在解决与情感AI系统相关的各种挑战。相比之下&#xff0c;Erik等人考虑了多模态融合&#xff0c;并提供了与单模态分析相比&#xff0c;不同融合类别下多模态情感识别潜在性能改进的关键分析。</p> 
+<h3 id="%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7">基于生理信号</h3> 
+<p>利用嵌入式设备获取生理信号&#xff0c;使生理情感识别成为可能。基于生理信号的情感识别主要包括基于EEG&#xff08;脑电图&#xff09;和ECG&#xff08;心电图&#xff09;的机器学习和深度学习方法。</p> 
+<h3 id="%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E4%BF%A1%E5%8F%B7%E8%9E%8D%E5%90%88">物理-生理信号融合</h3> 
+<p>在情感分析中同时使用生理和生理信号是一个明显的趋势。可以根据视听和生理信号来学习空间、时间和联合特征表示。</p> 
+<h2 id="%E4%BA%8C%E3%80%81%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">二、情感模型</h2> 
+<p>Emotion/Affect的定义对于建立情感的标准至关重要。十九世纪七十年代&#xff0c;Ekman第一次提出了emotions的基本概念。情感计算有两种通用的情感模型&#xff1a;离散情感模型和维度&#xff08;连续&#xff09;情感模型。</p> 
+<h3 id="2.1%20%E7%A6%BB%E6%95%A3%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">2.1 离散情感模型</h3> 
+<p>离散情感模型&#xff0c;也称为分类情感模型&#xff0c;将情感定义为有限的类别。两种被广泛使用的离散情绪模型分别是Ekman的六类基本情感和Plutchik的情感轮模型&#xff0c;分别如下图所示。</p> 
+<p><img alt="" height="680" src="https://img-blog.csdnimg.cn/6d21b0c7d755403b8a0177a760f8f957.png" width="1003" />六种基本情绪包括愤怒、厌恶、恐惧、快乐、悲伤和惊讶。<br /> Plutchik的轮子模型涉及八种基本情绪(即喜悦、信任、恐惧、惊讶、悲伤、期待、愤怒和厌恶)以及这些情绪之间的相互关系。例如&#xff0c;快乐和悲伤是对立的&#xff0c;期待很容易发展成警惕。轮子模型也被称为成分模型&#xff0c;其中较强的情绪占据中心&#xff0c;而较弱的情绪占据极端&#xff0c;这取决于它们的相对强度水平。这些离散的情绪通常可以分为三种极性(积极&#xff0c;消极和中性)&#xff0c;通常用于情感分析。为了描述细粒度的情感&#xff0c;提出了矛盾情感处理来分析多层次的情感&#xff0c;提高二值分类的性能。</p> 
+<h3 id="2.2%20%E7%BB%B4%E5%BA%A6%E6%83%85%E6%84%9F%E6%A8%A1%E5%9E%8B">2.2 维度情感模型</h3> 
+<p>维度情感模型弥补了离散情感模型的局限性&#xff0c;其中一个最被认可的模型是Pleasure-Arousal-Dominance (PAD)&#xff0c;如下图所示&#xff1a;</p> 
+<p><img alt="" height="465" src="https://img-blog.csdnimg.cn/1b293b1503b84f4a97028a1ea5d12f2b.png" width="480" /></p> 
+<p>PAD模型具有三维空间&#xff1a;</p> 
+<p>1)Pleasure(Valence)维度&#xff0c;代表人类从极度痛苦到狂喜的快乐程度;</p> 
+<p>2)Arousal(Activation)维度&#xff0c;测量生理活动和心理警觉性水平;</p> 
+<p>3)Dominance(Attention)维度&#xff0c;表达影响周围环境和他人的感觉&#xff0c;或被周围环境和他人影响的感觉</p> 
+<p>由于PAD模型中的Pleasure和Arousal两个维度可以代表绝大多数不同的情绪&#xff0c;因此Russell提出了一个基于Valence-Arousal的circumplex模型来代表复杂的情绪。该模型定义了一个连续的二维情感空间模型&#xff0c;其轴为Valance(愉快或不愉快的程度)和Arousal(激活或失活的程度)&#xff0c;如下图所示。圆周模型由四个象限组成。第一象限&#xff0c;积极效价的激活唤醒&#xff0c;显示了与快乐情绪相关的感受;第三象限&#xff0c;低唤醒和负效价&#xff0c;与悲伤情绪有关。第二象限显示愤怒情绪&#xff0c;具有高唤醒和负效价&#xff1b;第四象限为低唤醒、正效价的平静情绪。</p> 
+<p><img alt="" height="472" src="https://img-blog.csdnimg.cn/2824fe1afbc044d6bb5975b6d520eaae.png" width="505" /></p> 
+<h2 id="%C2%A0%E4%B8%89%E3%80%81%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE%E5%BA%93"> 三、情感计算数据库</h2> 
+<p>情感计算数据库根据数据模态可分为文本数据库、语音/音频数据库、视觉数据库、生理数据库和多模态数据库。</p> 
+<h3 id="3.1%20%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%BA%93">3.1 文本数据库</h3> 
+<p>TSA数据库主要有<strong>Multi-domain sentiment (MDS)</strong>和二元情感分类数据库IMDB。前者包含了从亚马逊网站获取的10万多句产品评论。这些句子被标记为两种情绪类别(积极和消极)和五种情绪类别(强积极&#xff0c;弱积极&#xff0c;中性&#xff0c;弱消极&#xff0c;强消极)&#xff1b;后者提供25000条极具极性的电影评论用于训练&#xff0c;25000条用于测试。此外&#xff0c; <strong>Stanford sentiment treebank(SST)</strong>是由斯坦福大学标注的语义词汇数据库。它在11855个句子的解析树中包含215154个短语的细粒度情感标签&#xff0c;并且它是第一个具有完全标记的解析树的语料库。</p> 
+<h3 id="3.2%C2%A0%E8%AF%AD%E9%9F%B3%2F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE%E5%BA%93">3.2 语音/音频数据库</h3> 
+<p>语音数据库可以分为两种类型&#xff1a;自发和非自发&#xff08;模拟和诱导&#xff09;</p> 
+<p>非自发数据库Emo-DB包含了10位演员(5男5女)以happy, angry, anxious, fearful, bored and disgusting 的方式说出的约500句话。自发数据库Belfast是在英国北爱尔兰女王大学对40名受试者(年龄在18至69岁之间&#xff0c;20名男性和20名女性)进行记录的。每位受试者参加五项测试&#xff0c;每项测试都包含立体声短视频(长度为5到60秒)&#xff0c;并与五种情绪倾向中的一种有关: anger, sadness, happiness, fear, and neutrality.</p> 
+<h3 id="3.3%20%E8%A7%86%E8%A7%89%E6%95%B0%E6%8D%AE%E5%BA%93">3.3 视觉数据库</h3> 
+<p>视觉数据库也可以分为两类:面部表情数据库和肢体动作情感数据库。</p> 
+<h4 id="3.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E6%95%B0%E6%8D%AE%E5%BA%93">3.3.1 面部表情数据库</h4> 
+<p><img alt="" height="799" src="https://img-blog.csdnimg.cn/ebe092ebf2be4a5282eefc3f0606897e.png" width="901" /></p> 
+<h4 id="3.3.2%20%E8%82%A2%E4%BD%93%E5%8A%A8%E4%BD%9C%E6%83%85%E6%84%9F%E6%95%B0%E6%8D%AE%E5%BA%93">3.3.2 肢体动作情感数据库</h4> 
+<p><img alt="" height="288" src="https://img-blog.csdnimg.cn/7274b963378043c88d3e9d6076cd1e62.png" width="592" /></p> 
+<h3 id="%C2%A03.4%20%E7%94%9F%E7%90%86%E6%95%B0%E6%8D%AE%E5%BA%93"> 3.4 生理数据库</h3> 
+<p><img alt="" height="241" src="https://img-blog.csdnimg.cn/bb338da89e9b47a5a54a5c891c497b68.png" width="1200" /></p> 
+<h3 id="%C2%A03.5%20%E5%A4%9A%E6%A8%A1%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93"> 3.5 多模态数据库</h3> 
+<p>多模态数据库主要分为多物理数据库和物理生理数据库两种类型。</p> 
+<p><img alt="" height="369" src="https://img-blog.csdnimg.cn/31cc14b7a99e4fcdb5f2d3f5e9387ef0.png" width="1200" /></p> 
+<h2 id="%C2%A0%E5%9B%9B%E3%80%81%E5%8D%95%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB"> 四、单模态情感识别</h2> 
+<h3 id="4.1%20%E6%96%87%E6%9C%AC%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90(TSA)">4.1 文本情感分析(TSA)</h3> 
+<p>传统的TSA方法通常依赖于被称为“特征工程”的过程来寻找与情感相关的有用特征。基于dl的模型可以从文本数据中实现端到端的情感分析。</p> 
+<p><span style="color:#fe2c24;">表格中的SER应该为TSA</span></p> 
+<p><img alt="" height="497" src="https://img-blog.csdnimg.cn/962e2404b81e49fe9928306eef9c7f91.png" width="1199" /></p> 
+<h4 id="%C2%A04.1.1%20ML-based%20TSA"> 4.1.1 ML-based TSA</h4> 
+<p>基于传统ML方法的TSA主要依赖于基于知识的技术或统计方法。前者需要对大型情感词汇表进行同义词典建模&#xff0c;而后者则假设有大型数据库的可用性&#xff0c;并标注极性或情感标签。</p> 
+<p><strong>①Knowledge-based TSA</strong>通常基于词汇和语言规则。由于知识本身的局限性&#xff0c;基于知识的模型仅限于理解那些典型的和严格定义的概念。</p> 
+<p><strong>②Statistical-based TSA</strong>更多地依赖于带注释的数据集&#xff0c;通过使用先验统计或后验概率来训练基于ml的分类器。与基于词典的方法相比&#xff0c;基于统计的TSA方法更适于情感分析&#xff0c;因为后者可处理更多的数据。</p> 
+<p><strong>③Hybrid-based TSA</strong>将知识与统计模型相结合&#xff0c;充分利用两者的优势。</p> 
+<h4 id="4.1.2%20DL-based%20TSA">4.1.2 DL-based TSA</h4> 
+<p>基于dl的技术具有从数据本身自动学习和发现判别特征表示的强大能力。TSA的各种基于dl的方法包括深度卷积神经网络(ConvNet)学习&#xff0c;深度RNN学习&#xff0c;深度ConvNet-RNN学习和深度对抗性学习。</p> 
+<p><strong>①Deep ConvNet learning for TSA. </strong>基于cnn的方法已经应用于不同层次的TSA&#xff0c;包括文档级、句子级和词级&#xff0c;通过使用不同的过滤器从输入数据中学习局部特征。</p> 
+<p><strong>②Deep RNN learning for TSA. </strong>基于rnn的TSA能够处理长序列数据。注意机制有助于根据加权表示对给定输入序列的相关部分进行优先排序&#xff0c;且计算成本低。在TSA的基于注意的LSTM范式中&#xff0c;LSTM帮助构建文档表示&#xff0c;然后基于注意的深度记忆层计算每个文档的评级。</p> 
+<p><strong>③Deep ConvNet-RNN learning for TSA</strong>将将ConvNets和rnn结合起来&#xff0c;通过获得每个模型提供的优势来提高TSA的性能。</p> 
+<p><strong>④Deep adversarial learning for TSA</strong>具有正则化监督学习算法能力。</p> 
+<h3 id="4.2%20%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB(SER)">4.2 音频情感识别(SER)</h3> 
+<p>音频情感识别通过处理和理解语音信号来检测嵌入的情感。各种基于ml和基于dl的SER系统已经在这些提取的特征基础上进行了更好的分析。传统的基于ml的SER集中于声学特征的提取和分类器的选择。然而&#xff0c;基于深度学习的SER构建了一个端到端的CNN架构来预测最终的情绪&#xff0c;而不考虑特征工程和选择。</p> 
+<p><img alt="" height="500" src="https://img-blog.csdnimg.cn/a59cbfa6c7dd42e6af87b2fe131dbacd.png" width="1049" /></p> 
+<h4 id="4.2.1%20ML-based%20SER">4.2.1 ML-based SER</h4> 
+<p>基于ML的SER系统包括两个关键步骤:情绪性语音的强特征表示学习和最终情绪预测的适当分类。</p> 
+<p><strong>基于声学特征的SER。</strong>韵律特征(如语调和节奏)已被发现能够传达SER情感内容最独特的特性。韵律特征包括基本频率(节奏和音调特征)、能量(音量或强度)和持续时间(构建元音、单词和类似结构的总时间)。语音质量是由声道的物理特性决定的&#xff0c;如抖动、闪烁和谐波噪声比。<br /> 与韵律特征或话语级谱特征相比&#xff0c;细粒度谱特征可以得到精度更高的结果。此外&#xff0c;这些特征与韵律特征的结合也提高了准确性。</p> 
+<p><strong>基于ML的SER分类器。</strong>由于语音信号的产生机制&#xff0c;隐马尔可夫分类器被广泛采用。GMM及其变体可以看作是一种特殊的连续HMM&#xff0c;适用于基于全局特征的SER。<br /> 与HMM和GMM不同的是&#xff0c;SVM通过核函数将情感向量映射到高维空间&#xff0c;并在高维空间中建立最大区间超平面进行最优分类。与单一分类器相比&#xff0c;集成学习已被证明具有更好的性能。</p> 
+<h4 id="4.2.2%C2%A0DL-based%20SER">4.2.2 DL-based SER</h4> 
+<p>基于DL的SER系统可以理解和检测情感语音的上下文和特征&#xff0c;而无需设计定制的特征提取器。带有自编码器的CNN被认为是基于DL的SER的常用技术。RNN及其变体(例如Bi-LSTM)被广泛用于捕获时间信息。SER的混合深度学习包括ConvNets和RNN&#xff0c;以及注意机制。针对数据量有限和数据库质量不高的问题&#xff0c;可以通过增强训练数据和消除扰动&#xff0c;将对抗性学习用于基于DL的SER。</p> 
+<p><strong>ConvNet learning for SER.</strong></p> 
+<p><strong>RNN learning for SER. </strong>RNN可以处理语音输入序列&#xff0c;并在处理下一个输入序列时保持其状态。他们学习短时间帧级的声学特征&#xff0c;并随着时间的推移将这些特征适当地聚合成一个话语级的表征。考虑到长话语中可能存在不同的情绪状态&#xff0c;RNN及其变体(如LSTM和Bi-LSTM)可以解决情绪标签的不确定性。注意模型的目的是忽略不相关的情绪框架和话语的其他部分。注意力模型旨在忽略话语中不相关的情绪框架。</p> 
+<p><strong>ConvNet-RNN learning for SER. </strong>由于卷积神经网络和RNN都有各自的优点和局限性&#xff0c;CNN和RNN的结合使得SER系统同时获得频率依赖性和时间依赖性</p> 
+<p><strong>Adversarial learning for SER. </strong>在SER系统中&#xff0c;分类器经常暴露于与测试数据具有不同分布的训练数据。训练数据和测试数据分布的差异导致了严重的误分类。GAN及其变体已被证明&#xff0c;生成模型生成的合成数据可以增强SER的分类性能</p> 
+<h3 id="4.3%20%E8%A7%86%E8%A7%89%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.3 视觉情感识别</h3> 
+<p>视觉情感识别主要分为面部表情识别(FER)和身体姿态情感识别(也称为情感身体姿态识别&#xff0c;EBGR)。</p> 
+<h4 id="4.3.1%20%E9%9D%A2%E9%83%A8%E8%A1%A8%E6%83%85%E8%AF%86%E5%88%AB">4.3.1 面部表情识别</h4> 
+<p>FER是使用包含面部情感线索的图像或视频来实现的。根据使用静态图像还是动态视频来表示面部表情&#xff0c;FER系统可以分为基于静态的FER和基于动态的FER。在面部表情持续时间和强度方面&#xff0c;FER又可分为宏观FER和微观FER(或FMER)。根据面部图像的维度&#xff0c;宏观FER可以进一步分为2D FER和3D/4D FER。请注意&#xff0c;由于面部图像或视频受到各种背景&#xff0c;照明和头部姿势的影响&#xff0c;因此使用预处理技术(例如如人脸对齐、人脸归一化和姿态归一化等)&#xff0c;对人脸区域的语义信息进行对齐和归一化。下表概述了代表性的FER方法。</p> 
+<p><img alt="" height="732" src="https://img-blog.csdnimg.cn/0fea5a9b75d9458895323e22329fd993.png" width="1112" /></p> 
+<h5 id="4.3.1.1%C2%A0ML-based%20FER">4.3.1.1 ML-based FER</h5> 
+<p><strong>①Geometry-based FER.</strong></p> 
+<p>基于面部动作编码系统(FACS)的先验知识&#xff0c;利用AAM中关键特征的变化和模糊逻辑模型来识别面部表情。由于不同局部结构的几何变形具有不稳定的形状表示&#xff0c;提出了局部突出定向模式描述子(local prominent directional pattern descriptor, LPDP)&#xff0c;利用像素邻域的统计信息编码更有意义和可靠的信息。</p> 
+<p><strong>②Appearance-based FER.</strong></p> 
+<p>通常从整个或特定的面部区域提取和分析空间信息或时空信息</p> 
+<p><strong>③Feature fusion for FER. </strong></p> 
+<p>已经证明融合不同类型的基于几何的特征和基于外观的特征来增强FER的鲁棒性。</p> 
+<p><strong>④Feature selection for FER. </strong></p> 
+<p>虽然更多的3D/4D特征或动态特征对FER有不同的影响&#xff0c;但过多的特征可能会破坏预测模型。特征选择是在识别和删除冗余属性的同时&#xff0c;从给定的特征集中选择一个相关且有用的子集。</p> 
+<p><strong>4.3.1.2 DL-based FER</strong></p> 
+<p>基于DL的FER骨干网大多来源于知名的预训练卷积神经网络&#xff0c;如VGG、VGG-face、ResNet和GoogLeNet。因此&#xff0c;考虑到网络架构的差异&#xff0c;我们将基于DL的FER分为针对FER的ConvNet学习、针对FER的ConvNet- RNN学习和针对FER的对抗性学习。</p> 
+<p><strong>①ConvNet learning for FER.</strong></p> 
+<p>当使用相对较小的面部表情数据库时&#xff0c;基于convnet的FER经常设计转换学习或损失函数来克服过拟合。为了突出面部图像中最有用的信息&#xff0c;提出了各种注意机制来区分不同的特征。除了具有注意力网络或损失函数的高效网络架构外&#xff0c;还有一种基于多尺度编码策略的快速轻量级流形卷积神经网络(FLM-CNN)或深度融合卷积神经网络。由于面部表情数据库的偏差&#xff0c;源数据库和目标数据库之间的条件概率分布往往不同。为了实现跨数据库的FER, 提出了一种新的深度情感条件自适应网络来学习域不变和判别特征表示。3D ConvNet(或C3D)通过学习和表示视频或序列的时空特征&#xff0c;已被普遍用于基于动态的FER。</p> 
+<p><strong>②ConvNet-RNN learning for FER. </strong></p> 
+<p>对于动态的面部序列或视频&#xff0c;连续帧的时间相关性应被视为重要的线索。RNN及其变体(LSTM)可以鲁棒地导出空间特征表示的时间特征。相比之下&#xff0c;代表性表达状态帧的空间特征可以通过CNN学习。基于ConvNet-RNN网络的架构&#xff0c;许多研究提出了级联融合或集成策略来捕获FER的空间和时间信息。使用级联融合的基于ConvNet-RNN的FER的标准流程是将卷积神经网络的输出级联到RNN中以提取时间动态。采用集成策略的基于ConvNet-RNN的FER的标准流程是融合两个流的输出。</p> 
+<p><strong>③Adversarial learning for FER.</strong></p> 
+<p>由于GAN可以生成不同姿态和视角下的合成面部表情图像&#xff0c;因此基于gan的模型被用于姿态/视角不变的FER或身份不变的FER。</p> 
+<h4 id="4.3.2%20%E8%BA%AB%E4%BD%93%E5%A7%BF%E6%80%81%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.3.2 身体姿态情感识别</h4> 
+<p>由于视觉情感识别在识别人类情感方面的突出优势&#xff0c;大多数视觉情感识别研究都集中在视觉情感识别上。然而&#xff0c;在某些环境下&#xff0c;当专用传感器无法捕获面部图像或仅捕获低分辨率的面部图像时&#xff0c;FER将不适用。EBGR旨在从全身视觉信息(如身体姿势)和身体骨架运动或上半身视觉信息(如手势、头部定位和眼球运动)中揭示一个人隐藏的情绪状态。EBGR的一般流程包括人体检测(视为预处理)、特征表示和情感识别。从特征提取和情感识别过程是否端到端进行的角度出发&#xff0c;EBGR系统分为基于ML的EBGR和基于DL的EBGR。</p> 
+<h5 id="4.3.2.1%20ML-based%20EBGR">4.3.2.1 ML-based EBGR</h5> 
+<p>在现有的基于ML的EBGR系统中&#xff0c;输入是通过整体身体部位或运动学模型对人体手势(或其动力学)的抽象;通过基于机器学习的方法或统计度量来区分输出的情绪&#xff0c;将输入映射到情绪特征空间&#xff0c;在情感特征空间中&#xff0c;情绪状态可以被基于机器学习的分类器识别。</p> 
+<p><strong>①Statistic-based or movement-based EBGR. </strong></p> 
+<p>特征提取的方法可以分为基于统计的分析和基于运动的分析。</p> 
+<p><strong>②Feature fusion for EBGR. </strong></p> 
+<p>融合多身体姿态特征可以增强EBGR的泛化能力和鲁棒性</p> 
+<p><strong>③Classifier-based EBGR.</strong></p> 
+<p>基于ML的EBGR常用分类器包括决策树、集成决策树、KNN、SVM等。</p> 
+<p><strong>④Non-acted EBGR. </strong></p> 
+<p>虽然上述工作在表演数据上显示出良好的结果&#xff0c;但由于夸大了情绪身体动作&#xff0c;它们无法解决更困难的非表演场景。</p> 
+<h5 id="4.3.2.2%20DL-based%20EBGR">4.3.2.2 DL-based EBGR</h5> 
+<p>尽管基于DL的EBGR系统不需要设计定制的特征提取器&#xff0c;但它们通常基于常用的姿态估计模型或低级特征提取器对输入数据进行预处理。通过基于CNN的网络、基于LSTM的网络或基于CNN-LSTM的网络&#xff0c;可以在空间、时间或时空维度上学习高级特征。最近&#xff0c;许多研究已经证明了将不同的基于DL的模型与注意机制有效结合在一起的优势&#xff0c;可以提高EBGR的性能。</p> 
+<p><strong>①ConvNet-RNN learning for EBGR.</strong></p> 
+<p><strong>②Zero-shot based EBGR.</strong></p> 
+<p>由于人类通过肢体语言表达情感的复杂性和多样性&#xff0c;很难列举出所有的情感肢体语言&#xff0c;并为每个类别收集足够的样本。因此&#xff0c;现有的方法无法确定一个新的身体姿态属于哪种情绪状态。为了从看到的身体姿态中识别未知的情绪或未见过的身体姿态中了解情绪&#xff0c;引入了广义零机会学习框架&#xff0c;包括基于CNN的特征提取、基于自编码器的表示学习和情绪分类器。</p> 
+<h3 id="4.4%C2%A0%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%90%86%E7%9A%84%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">4.4 基于生理的情感识别</h3> 
+<p>一个人的面部表情、文字、声音和肢体动作都可以很容易地收集到。由于身体信息的可靠性在很大程度上取决于社会环境和文化背景&#xff0c;以及测试者的性格&#xff0c;他们的情绪很容易被伪造。而生理信号的变化直接反映了人类情绪的变化&#xff0c;可以帮助人类识别、解读和模拟情绪状态。因此&#xff0c;通过生理信号来学习人类情绪是非常客观的。</p> 
+<p><img alt="" height="477" src="https://img-blog.csdnimg.cn/4157cdace88c4e4280ddf62805412a82.png" width="987" /></p> 
+<p> 在上述生理情绪信号中&#xff0c;EEG或ECG可为识别情绪提供简单、客观、可靠的数据&#xff0c;是最常用于情绪分析和情绪识别的信号。</p> 
+<p><img alt="" height="370" src="https://img-blog.csdnimg.cn/0a3d36297d5b49619125648842d16cc0.png" width="1099" /></p> 
+<h4 id="4.4.1%20EEG-based%20emotion%20recognition">4.4.1 EEG-based emotion recognition</h4> 
+<p>与其他外周神经生理信号相比&#xff0c;EEG可以直接测量大脑活动的变化&#xff0c;提供情绪状态的内在特征。此外&#xff0c;脑电图具有较高的时间分辨率&#xff0c;可以实时监测人的情绪状态。因此&#xff0c;最近出现了各种基于脑电图的情感识别技术。</p> 
+<h5 id="4.4.1.1%20ML-based%20EEG%20emotion%20recognition">4.4.1.1 ML-based EEG emotion recognition</h5> 
+<p>基于ML的脑电图情感识别的性能取决于如何正确设计特征提取、特征降维(或特征选择)和分类方法。特征提取的核心目标是提取重要的脑电信号特征&#xff0c;包括时域特征、频域特征和时频域特征。快速傅里叶变换(FFT)分析常用于将EEG转换为功率谱。由于脑电图的冗余性&#xff0c;特征降维是基于脑电图的情感识别的重要步骤。基于EEG的情感识别常用的基于ML的分类器是SVM或其变体。</p> 
+<h5 id="4.4.1.2%20DL-based%20EEG%20emotion%20recognition">4.4.1.2 DL-based EEG emotion recognition</h5> 
+<p>与基于ML的EEG情感识别流程不同&#xff0c;基于DL的EEG情感识别同时学习特征并对基于脑电图的情绪进行分类。</p> 
+<h4 id="4.4.2%20ECG-based%20emotion%20recognition">4.4.2 ECG-based emotion recognition</h4> 
+<p>心电图通过自主神经系统的活动&#xff0c;记录人的心脏在不同情况下的生理变化。随着人的情绪或情绪状态的变化&#xff0c;心电会检测到相应的波形变换&#xff0c;可以为情绪识别提供足够的信息。</p> 
+<h5 id="4.4.2.1%20ML-based%20ECG%20emotion%20recognition">4.4.2.1 ML-based ECG emotion recognition</h5> 
+<p>基于心电的情绪自动识别的九个阶段框架&#xff0c;包括:1)信号预处理;2) R波检测;3)开窗心电记录;4)噪声时代抑制;5)基于时域、频域和非线性分析的特征提取;6)特征归一化;7)基于序列前向浮动选择核的类可分离性特征选择;8)基于广义判别分析的特征约简;9)基于LS-SVM的分类器构建。注意&#xff0c;并非所有基于ml的心电情绪识别方法都遵循上述步骤&#xff0c;但特征提取、特征选择和分类器的步骤是必不可少的。</p> 
+<h5 id="4.4.2.2%20DL-based%C2%A0ECG%20emotion%20recognition">4.4.2.2 DL-based ECG emotion recognition</h5> 
+<p>提出了EmotionalGAN和自监督的方法来进行基于DL的ECG情感识别。</p> 
+<h2 id="%E4%BA%94%E3%80%81%C2%A0%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">五、 多模态情感分析</h2> 
+<p>多模态情感分析框架融合不同模态&#xff0c;旨在获得比单模态情感识别更准确的结果和更全面的理解。</p> 
+<p>1. 特征级融合将从多模态输入中提取的特征组合成一个通用特征向量&#xff0c;然后将其发送到分类器中。 (a)、(b)和(c)分别显示了基于特征级融合的视音频模式、文本音频模式和视音频文本模式的示例。</p> 
+<p><img alt="" height="677" src="https://img-blog.csdnimg.cn/fbdfdb02f90a471b912563e6ede11cc2.png" width="1042" /><br /> 2. 决策级融合将每个模态独立生成的所有决策向量连接成一个特征向量。(d)显示了基于决策级融合的EGG、ECG和EDA多生理模式的一个示例。<br /> 3.模型级融合发现从不同模态中提取的特征之间的相关性&#xff0c;并使用或设计具有松弛和平滑类型(如HMM和两阶段ELM)的融合模型。 (e)和(f)分别是基于物理生理模式和视觉-音频-文本模式的模型级融合的两个示例。</p> 
+<p><img alt="" height="629" src="https://img-blog.csdnimg.cn/3847257453b04be099891d80abbcaead.png" width="1035" /><br /> 4. 混合融合是特征级融合和决策级融合的结合。(g)显示了一个基于视觉-音频-文本模式混合融合的示例。</p> 
+<p><img alt="" height="307" src="https://img-blog.csdnimg.cn/b45f9147c280476ebc6dcd0798e5f1c4.png" width="1039" /></p> 
+<h3 id="5.1%20%E5%A4%9A%E7%89%A9%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E8%BF%9B%E8%A1%8C%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.1 多物理模态融合进行情感分析</h3> 
+<p>根据模态组合的常见方式&#xff0c;我们将情感分析的多物理模态融合分为视音频情感识别、文本音频情感识别和视音频文本情感识别。</p> 
+<p><img alt="" height="763" src="https://img-blog.csdnimg.cn/24ea0c14eed64170b492c1ad6907a579.png" width="1200" /></p> 
+<h4 id="%C2%A05.1.1%20%E8%A7%86%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB"> 5.1.1 视音频情感识别</h4> 
+<p>视觉和听觉信号是人们日常交流中最自然、最有效的情感表达方式。许多研究工作表明&#xff0c;视觉-音频情感识别优于视觉或音频情感识别。</p> 
+<p><strong>①特征级融合   </strong></p> 
+<p><strong>②决策级融合   </strong></p> 
+<p><strong>③模型级融合</strong></p> 
+<p>需要基于ML的模型(如HMM、卡尔曼滤波器和DBN)来构建不同模态之间的关系来做出决策。</p> 
+<h4 id="5.1.2%20%E6%96%87%E6%9C%AC%E9%9F%B3%E9%A2%91%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">5.1.2 文本音频情感识别</h4> 
+<p>尽管SER和TSA已经取得了重大进展&#xff0c;但单独执行这两项任务很难获得令人信服的结果。文本音频情感识别方法使用语言内容和语音线索来增强单模态情感识别系统的性能。</p> 
+<p><strong>①特征级融合   </strong></p> 
+<p><strong>②决策级融合   </strong></p> 
+<p><strong>③特征级融合与决策级融合</strong></p> 
+<p>为了验证特征级融合和决策级融合在文本音频情感识别中哪个更有效&#xff0c;探讨了特征级融合和决策级融合三种不同的融合方式&#xff0c;比较了它们的性能。</p> 
+<h4 id="5.1.3%20%E8%A7%86-%E5%90%AC-%E6%96%87%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB">5.1.3 视-听-文情感识别</h4> 
+<p>声音调节、面部表情和基于上下文的文本为更好地识别意见持有者的真实情感状态提供了重要线索。例如&#xff0c;当一位女士被求婚&#xff0c;然后她流着泪说“我愿意”时&#xff0c;基于文本、基于音频或基于视觉的情感识别模型都无法预测自信的结果。而视觉-音频-文本情感识别则会带来更好的解决方案。</p> 
+<p><strong>①特征级融合</strong></p> 
+<p>与三种单模态和三种双模态模型相比&#xff0c;多模态(文本-音频-视觉)模型比单独使用一种模态或融合任何两种模态都能显著提高模型性能。</p> 
+<p><strong>②特征级融合与决策级融合</strong></p> 
+<p>实验结果表明&#xff0c;文本情感识别在三种单模态情感识别方法中表现最好&#xff0c;在特征级融合方面&#xff0c;视听文本情感识别优于其他单模态和双模态情感识别。特征级融合的精度明显高于决策级融合&#xff0c;但以牺牲计算速度为代价。</p> 
+<p><strong>③模型级融合</strong></p> 
+<p><strong>④混合级融合</strong></p> 
+<h3 id="5.2%20%E5%A4%9A%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.2 多生理模态融合情感分析</h3> 
+<p>随着可穿戴技术的增强和完善&#xff0c;基于多生理模式的自动情感分析受到越来越多的关注。然而&#xff0c;由于情绪的复杂性和生理反应的显著个体差异&#xff0c;无论是基于脑电图还是基于脑电图的情绪识别&#xff0c;都难以达到令人满意的预测效果。</p> 
+<p><img alt="" height="302" src="https://img-blog.csdnimg.cn/67c3fd07b8174a5a9657c71f7f04ebbc.png" width="1200" /></p> 
+<p><strong>①特征级融合   </strong></p> 
+<p><strong>②决策级融合   </strong></p> 
+<p><strong>③模型级融合</strong></p> 
+<h3 id="5.3%20%E7%89%A9%E7%90%86-%E7%94%9F%E7%90%86%E6%A8%A1%E6%80%81%E8%9E%8D%E5%90%88%E7%9A%84%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90">5.3 物理-生理模态融合的情感分析</h3> 
+<p>由于人类情绪的变化是一种复杂的心理生理活动&#xff0c;情感分析的研究涉及到许多线索(如行为信号、生理信号和心理信号)。研究人员通过挖掘物理数据的强烈外部表达和生理信号不可掩饰的内部变化&#xff0c;将物理-生理模态融合用于情感分析。</p> 
+<p><img alt="" height="224" src="https://img-blog.csdnimg.cn/bae060842b6740689c973fac5576bca3.png" width="1200" /></p> 
+<p><strong>①特征级融合</strong></p> 
+<p><strong>②特征级融合与决策级融合</strong></p> 
+<p>Huang等提出了基于视频脑电的多模态情感分析方法&#xff0c;该方法将外部面部表情的时空局部单基因二元模式与内部脑电的特征级和决策级判别谱功率相融合。根据他们的实验&#xff0c;多模态情感分析比单模态情感识别取得了更好的性能;在MAHNOB-HCI的效价和唤醒识别方面&#xff0c;决策级融合优于特征级融合。</p> 
+<p><strong>③模型级融合</strong></p> 
+<h2 id="%E5%85%AD%E3%80%81%E8%AE%A8%E8%AE%BA">六、讨论</h2> 
+<h3 id="6.1%20%E4%B8%8D%E5%90%8C%E4%BF%A1%E5%8F%B7%E5%AF%B9%E5%8D%95%E5%B3%B0%E6%83%85%E6%84%9F%E8%AF%86%E5%88%AB%E7%9A%84%E5%BD%B1%E5%93%8D">6.1 不同信号对单峰情感识别的影响</h3> 
+<p>根据基于文本、音频、视觉、EEG或ECG的单模态情感识别&#xff0c;我们可以发现&#xff0c;使用最广泛的是视觉信号&#xff0c;主要由面部表情和肢体动作组成。基于视觉的情绪识别系统的数量与基于其他模态的系统的数量相当&#xff0c;因为视觉信号比其他信号更容易捕获&#xff0c;并且视觉信号中的情绪信息比其他信号更有助于识别人类的情绪状态。基于视觉的情感识别比基于音频的情感识别更有效&#xff0c;因为音频信号容易受到噪声的影响。<br /> 然而&#xff0c;一项研究表明&#xff0c;基于文本的情感分析在情感识别和情感分析中准确率最高。虽然可穿戴传感器收集的生理信号比物理信号更难获得&#xff0c;但由于其结果客观可靠&#xff0c;许多基于脑电图或基于心电图的情绪识别方法已经被研究和提出。</p> 
+<h3 id="6.2%20%E6%A8%A1%E6%80%81%E7%BB%84%E5%90%88%E5%8F%8A%E8%9E%8D%E5%90%88%E7%AD%96%E7%95%A5%E5%AF%B9%E5%A4%9A%E6%A8%A1%E6%80%81%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E7%9A%84%E5%BD%B1%E5%93%8D">6.2 模态组合及融合策略对多模态情感分析的影响</h3> 
+<p>不同模态的结合和融合策略是多模态情感分析的两个关键方面。多模态组合分为多物理模态、多生理模态和物理-生理模态。融合策略包括特征级融合、决策级融合、混合级融合和模型级融合。</p> 
+<p><br /> 在多物理模态中&#xff0c;有三种不同模态的组合&#xff0c;包括视觉-音频、文本-音频和视觉-音频-文本。整合视觉和音频信息可以提高单模情感识别的性能。在其他多物理模态组合中也有类似的结果&#xff0c;其中文本模态在多模态情感分析中起着最重要的作用。在情感分析的多生理模态融合研究中&#xff0c;除EEG和ECG外&#xff0c;还联合其他类型的生理信号(如ECG、EOG、BVP、GSR和EMG)来解释情绪状态。视觉模态(面部表情、声音、手势、姿势等)也可以与多模态生理信号相结合&#xff0c;用于视觉-生理情感分析。<br /> 多模态情感分析的两种基本融合策略是特征级融合和决策级融合。<span style="color:#fe2c24;">特征向量的拼接</span>或<span style="color:#fe2c24;">因式双线性池化</span>通常用于特征级融合。<span style="color:#fe2c24;">多数/平均投票</span>通常用于决策级融合。<span style="color:#fe2c24;">线性加权计算</span>可以用于特征级和决策级融合&#xff0c;通过使用和/乘积算子来融合不同模态的特征或分类决策。</p> 
+<p><br /> 根据多模态情感分析&#xff0c;我们发现<span style="color:#ff9900;">特征级融合比决策级融合更为常见</span>。基于特征级融合的情感分类器的性能受到来自不同模态特征的时间尺度和度量水平的显著影响。</p> 
+<p><br /> 另一方面&#xff0c;在决策级融合中&#xff0c;对来自每个模态的输入进行独立建模&#xff0c;最后将这些单模态的情感识别结果结合起来。<span style="color:#ff9900;">与特征级融合相比&#xff0c;决策级融合更容易进行&#xff0c;但忽略了不同模态特征之间的相关性。</span>混合级融合旨在充分利用基于特征的融合和基于决策的融合策略的优点&#xff0c;同时克服两者的缺点。与上述三种融合策略不同&#xff0c;模型级融合使用HMM或贝叶斯网络来建立不同模态特征与一种松弛融合模式之间的相关性。HMM或贝叶斯的选择和建立对模型级融合的结果有致命的影响&#xff0c;而模型级融合往往是为一个特定的任务而设计的。</p> 
+<h3 id="6.3%20%E5%9F%BA%E4%BA%8EML%E5%92%8C%E5%9F%BA%E4%BA%8EDL%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D">6.3 基于ML和基于DL的模型对情感计算的影响</h3> 
+<p>大多数关于情感计算的早期工作都采用了基于ML的技术。基于ML的管道由原始信号的预处理&#xff0c;手工制作的特征提取器和精心设计的分类器组成。尽管已经为不同的模式设计了各种类型的手工特征&#xff0c;但是基于ML的情感分析技术很难在类似的问题中重用&#xff0c;因为它们具有特定于任务和特定于领域的特征描述符。常用的基于ML的分类器有SVM、HMM、GMM、RF、KNN和ANN&#xff0c;其中SVM分类器是最有效的分类器&#xff0c;确实用于基于ML的情感计算的大多数任务中。当基于DL的模型仅用于单模态特征提取或多模态特征分析时&#xff0c;这些基于ML的分类器也用于最终分类。</p> 
+<p><br /> 目前&#xff0c;基于DL的模型由于具有较强的特征表示学习能力&#xff0c;在情感计算的大部分领域已经成为热点&#xff0c;并超过了基于ML的模型。对于静态信息(例如&#xff0c;面部和光谱图图像)&#xff0c;CNN及其变体被设计用于提取重要的和判别性的特征。对于序列信息(如生理信号和视频)&#xff0c;RNN及其变体被设计用于捕获时间动态。CNN-LSTM模型可以进行深度时空特征提取。对抗学习被广泛用于通过增强数据和跨领域学习来提高模型的鲁棒性。此外&#xff0c;将不同的注意力机制和自动编码器与基于DL的技术集成在一起&#xff0c;以提高整体性能。似乎基于DL的方法在自动学习最具判别性的特征方面具有优势。然而&#xff0c;与基于ML的模型相比&#xff0c;基于DL的方法尚未对生理情绪识别产生巨大影响。</p> 
+<h3 id="6.4%20%E4%B8%80%E4%BA%9B%E6%BD%9C%E5%9C%A8%E5%9B%A0%E7%B4%A0%E5%AF%B9%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E7%9A%84%E5%BD%B1%E5%93%8D">6.4 一些潜在因素对情感计算的影响</h3> 
+<p>在整个回顾中&#xff0c;我们一致发现情感计算的进步是由各种数据库基准驱动的。例如&#xff0c;由于物理生理情感数据库的限制&#xff0c;视频生理情感识别方法很少。相比之下&#xff0c;FER的快速发展与各种基线数据库是分不开的&#xff0c;这些数据库是公开的&#xff0c;可以免费下载。此外&#xff0c;还可以使用BU-4DFE、BP4D等大型视觉数据库对目标模型进行预训练&#xff0c;以识别面部表情或微表情。然而&#xff0c;不同的数据库在大小、质量和收集条件方面存在显著差异。例如&#xff0c;大多数身体姿态情感数据库只包含几百个样本&#xff0c;姿态类别有限。更糟糕的是&#xff0c;样本通常是在实验室环境中收集的&#xff0c;这往往远离现实世界的条件。此外&#xff0c;数据库的大小和质量对基于DL的情感识别的影响比基于ML的情感识别更明显。许多研究已经得出结论&#xff0c;减少可用数据库的大小是追求高性能情感分析的关键因素。为了解决这个问题&#xff0c;可以将预先训练好的基于DL的模型转换为专门用于情感分析的基于任务的模型。</p> 
+<p><br /> 尽管对自然情感状态的表征尚无共识&#xff0c;但大多数情感分析都是基于两种类型的情感模型进行训练和评估的:离散模型和维度模型。在建立情感数据库时&#xff0c;通常选择离散或维度标签来拟合原始信号。例如&#xff0c;情感图像或序列通常与离散的情感状态(基本情感或极性)相匹配。情感识别可以分为分类(情感、维度或极性)和连续维度回归(愉悦、唤醒、优势期望或强度)。分类或成分情绪分类通常采用正确率、精密度和召回率三个指标。当数据库不平衡时&#xff0c;通过10折交叉验证和LOSO, F-Measure(或F1-Score)似乎是现有情绪分类评估指标中的最佳选择。加权平均recall/F1-score (WAR/WF1)和非加权平均recall/F1-score (UAR/UF1)最适合于视觉、音频或多模态情感分析的分类性能。另一方面&#xff0c;MSE和RMSE通常用于评估连续维度的情绪预测。为了描述重合程度&#xff0c;建议通过整合PCC和MSR&#xff0c;采用系数一致性相关系数来评估基线绩效评估。</p> 
+<h3 id="6.5%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97%E5%9C%A8%E7%8E%B0%E5%AE%9E%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8">6.5情感计算在现实场景中的应用</h3> 
+<p>近年来&#xff0c;越来越多的研究团队将重点转向情感计算在现实场景中的应用。NTU的Erik Cambria领导的SenticNet为了从文本信息中检测情绪和情感&#xff0c;将情感计算和情感分析的研究成果应用到日常生活的许多方面&#xff0c;包括HCI、金融和社交媒体监测和预测。TSA通常用于推荐系统&#xff0c;通过整合各种反馈信息或微博文本。视觉情感识别的应用包括课程教学、智能决策辅助、HCI、游戏玩家动态质量适应、抑郁症识别以及帮助自闭症谱系障碍儿童医学康复。特别是&#xff0c;由于音频/语音情感信号的可靠性和稳定性以及可穿戴设备的生理信号的可及性&#xff0c;音频和生理信号经常被用于检测临床抑郁和压力。由于多模态情感分析可以增强单模态情感识别的鲁棒性和性能&#xff0c;越来越多的研究开始将其转化为各种现实应用&#xff0c;使其成为一个有前景的研究途径。</p> 
+<h2 id="%E4%B8%83%E3%80%81%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E5%B1%95%E6%9C%9B">七、未来研究展望</h2> 
+<p>1)发展新的和更广泛的基线数据库&#xff0c;特别是由不同模式(文本、音频、视觉和生理)组成的多模态情感数据库将会是有帮助的。条件应该包括自发和非自发的场景&#xff0c;并在离散和维度情感模型中提供注释数据。</p> 
+<p><br /> 2)情感分析中存在一些具有挑战性的问题需要解决&#xff0c;包括部分遮挡或虚假情绪表达下的FER&#xff0c;基于各种复杂信号的生理情绪识别&#xff0c;以及针对离散情绪识别和维度情绪预测的基线模型。</p> 
+<p><br /> 3)融合策略有很大的改进空间&#xff0c;特别是基于规则或基于统计的知识&#xff0c;以实现不同模式的相互融合&#xff0c;可以考虑每种模式在情感识别中的作用和重要性。</p> 
+<p>4)零/小样本或无监督学习方法(如自监督学习)需要进一步探索&#xff0c;特别是由于它们有可能增强有限或有偏差数据库下情感分析的鲁棒性和稳定性。</p> 
+<p><br /> 5)情感分析的一个突出应用是机器人技术。</p>
+                </div>
+        </div>
+        <div id="treeSkill"></div>
+    </article>
+<script>
+  $(function() {
+    setTimeout(function () {
+      var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+      if (mathcodeList.length > 0) {
+        for (let i = 0; i < mathcodeList.length; i++) {
+          if (mathcodeList[i].naturalWidth === 0 || mathcodeList[i].naturalHeight === 0) {
+            var alt = mathcodeList[i].alt;
+            alt = '\\(' + alt + '\\)';
+            var curSpan = $('<span class="img-codecogs"></span>');
+            curSpan.text(alt);
+            $(mathcodeList[i]).before(curSpan);
+            $(mathcodeList[i]).remove();
+          }
+        }
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+      }
+    }, 1000)
+  });
+</script>
+</div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+  <div class="directory-boxshadow-dialog-box">
+  </div>
+  <div class="vip-limited-time-offer-box">
+    <div class="vip-limited-time-offer-content">
+      <img class="limited-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close.png">
+      <div class="limited-box">
+        <span class="limited-num"></span>
+        <span class="limited-quan"> 优惠劵</span>
+      </div>
+      <div class="limited-time-box">
+        <span class="time-hour"></span>
+        <span class="time-minite"></span>
+        <span class="time-second"></span>
+      </div>
+      <a class="limited-time-btn" href="https://mall.csdn.net/vip" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query='spm=1001.2101.3001.9621'></a>
+    </div>
+  </div>
+</div>    <div class="more-toolbox-new" id="toolBarBox">
+      <div class="left-toolbox">
+        <div class="toolbox-left">
+            <div class="profile-box">
+              <a class="profile-href" target="_blank" href="https://blog.csdn.net/ChristopherI"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/3b9c93f5e94146b183627c1eb60d470e_christopheri.jpg!1">
+                <span class="profile-name">
+                  ChrisyyGuan
+                </span>
+              </a>
+            </div>
+            <div class="profile-attend">
+              
+                <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+              <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </div>
+        </div>
+        <div class="toolbox-middle">
+          <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like">
+              <a class="tool-item-href">
+                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021Active.png" alt="">
+                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2021Black.png" alt="">
+                <span id="spanCount" class="count ">
+                    1
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">点赞</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+              <a class="tool-item-href">
+                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021Active.png" alt="">
+                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newUnHeart2021Black.png" alt="">
+                <span id="unlikeCount" class="count "></span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">踩</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+              <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
+                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectBlack.png" alt="">
+                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
+                <span class="count get-collection " data-num="8" id="get-collection">
+                    8
+                </span>
+              </a>
+              <div class="tool-hover-tip collect">
+                <div class="collect-operate-box">
+                  <span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+                </div>
+              </div>
+              <div class="tool-active-list">
+                <div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+                 <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt="">
+                </div>
+              </div>
+            </li>
+                <li class="tool-item tool-item-size tool-active tool-item-reward">
+                  <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_830","spm":"1001.2101.3001.4237","dest":"","ab":"new"}'>
+                    <img class="isdefault reward-bt" id="rewardBtNew" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newRewardBlack.png" alt="打赏">
+                    <span class="count"></span>
+                  </a>
+                  <div class="tool-hover-tip"><span class="text space">打赏</span></div>
+                </li>
+          <li class="tool-item tool-item-size tool-active tool-item-comment">
+            <div class="guide-rr-first">
+              <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png" alt="">
+              <button class="btn-guide-known">知道了</button>
+            </div>
+              <a class="tool-item-href go-side-comment" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+              <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newComment2021Black.png" alt="">
+              <span class="count">
+                  1
+              </span>
+            </a>
+            <div class="tool-hover-tip"><span class="text space">评论</span></div>
+          </li>
+          <li class="tool-item tool-item-bar">
+          </li>
+          <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+            <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"1582594662_002","spm":"1001.2101.3001.4129","ab":"new"}'>
+              <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newShareBlack.png" alt="">
+            </a>
+              <div class="QRcode" id="tool-QRcode">
+            <div class="share-bg-icon icon1" id="shareBgIcon"></div>
+              <div class="share-bg-box">
+                <div class="share-content">
+                    <img class="share-avatar" src="https://profile-avatar.csdnimg.cn/3b9c93f5e94146b183627c1eb60d470e_christopheri.jpg!1" alt="">
+                  <div class="share-tit">
+                    情感计算综述
+                  </div>
+                  <div class="share-dec">
+                    情感计算主要分为单模态和多模态的研究，其中单模态包括文本SA, 音频ER，视觉ER和基于生理信号的ER；多模态包括多物理模态融合、多生理模态融合和物理-生理模态融合。
+                  </div>
+                  <a id="copyPosterUrl" class="url" data-report-click='{"spm":"1001.2101.3001.7493"}' data-report-view='{"spm":"1001.2101.3001.7493"}'>复制链接</a>
+                </div>
+                <div class="share-code">
+                  <div class="share-code-box" id='shareCode'></div>
+                  <div class="share-code-text">扫一扫</div>
+                </div>
+              </div>
+                <div class="share-code-type">
+                </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbox-right">
+            <div class="tool-directory">
+                <a class="bt-columnlist-show"
+                  data-id="12361454"
+                  data-free="true"
+                  data-subscribe="false"
+                  data-title="情感计算"
+                  data-img="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64"
+                  data-url="https://blog.csdn.net/christopheri/category_12361454.html"
+                  data-sum="1"
+                  data-people="0"
+                  data-price="0"
+                  data-status="true"
+                  data-oldprice="0"
+                  data-join="false"
+                  data-studyvip="false"
+                  data-studysubscribe="false"
+                  data-report-view='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}'
+                  data-report-click='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}'>专栏目录</a>
+          </div>
+</div>
+</div>
+</div>
+<script type=text/javascript crossorigin src="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js"></script>
+<script src="//g.csdnimg.cn/??sharewx/1.2.1/sharewx.js" type="text/javascript"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/collection-box/2.1.2/collection-box.js"></script>                <div class="first-recommend-box recommend-box ">
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_39840650/11406154"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-download-2~default~CTRLIST~Paid-1-11406154-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Paid","dest":"https://download.csdn.net/download/weixin_39840650/11406154"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_39840650/11406154" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-download-2~default~CTRLIST~Paid-1-11406154-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Paid","dest":"https://download.csdn.net/download/weixin_39840650/11406154"}'  data-report-query='spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-download-2%7Edefault%7ECTRLIST%7EPaid-1-11406154-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-download-2%7Edefault%7ECTRLIST%7EPaid-1-11406154-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">论文研究-基于视觉的<em>情感</em>分析研究<em>综述</em>.pdf</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">07-22</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_39840650/11406154" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-download-2~default~CTRLIST~Paid-1-11406154-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Paid","dest":"https://download.csdn.net/download/weixin_39840650/11406154"}'  data-report-query='spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-download-2%7Edefault%7ECTRLIST%7EPaid-1-11406154-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-download-2%7Edefault%7ECTRLIST%7EPaid-1-11406154-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">视觉<em>情感</em>分析的目的是使用带有主观感情色彩的方式表述图像和视频，并使<em>计算</em>机能够检测和表达这些信息。伴随着社会化媒体的兴盛和充沛训练数据的出现，深度学习之类的技术革命给该领域带来新的机遇和挑战。从视觉<em>情感</em>语义提取框架出发，对传统视觉<em>情感</em>分析中视觉特征提取、<em>情感</em>空间建立和特征与<em>情感</em>的映射等关键技术进行<em>综述</em>；并对基于中间表达层、目标对象检测的视觉<em>情感</em>分析以及大数据背景下深度学习技术在该领域的应用进行论述；最后对视觉<em>情感</em>分析存在的问题进行总结并对未来有前景的研究方向进行展望。</div>
+			</a>
+		</div>
+	</div>
+</div>
+                </div>
+              <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_commontools-094b8ec121.min.js" type="text/javascript" async></script>
+                <div class="second-recommend-box recommend-box ">
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/lcx137785/article/details/132695151"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-132695151-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/lcx137785/article/details/132695151"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/lcx137785/article/details/132695151" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-132695151-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/lcx137785/article/details/132695151"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-132695151-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-132695151-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">语音情绪识别初认识</div>
+					<div class="tag">最新发布</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/lcx137785" target="_blank"><span class="blog-title">lcx137785的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-05</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					110
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/lcx137785/article/details/132695151" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-132695151-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"1","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/lcx137785/article/details/132695151"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-132695151-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-132695151-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">好的标注往往能提高数据的质量，进而提高系统的性能。但人工标注存在诸多问题，如人对情绪判断的主观性、标注时的时间延迟。需要借助一些工具、算法来完成统一的标注，现在已经有一些方法，如<em>情感</em>标注工具箱MuSe-Toolbox、半监督自动编码器结合少量的有标记数据和未标记数据等，但还没有统一的标准。用于SER任务的代表性深度学习技术有CNN、RNN、胶囊网络(CapsNet)、自编码器、Transformer等。SER最 最近的研究更多的在于对各深度学习<em>模型</em>该技能和整合上。效价维：从快乐到不快乐的连续过程。</div>
+			</a>
+		</div>
+	</div>
+</div>
+                </div>
+<a id="commentBox" name="commentBox"></a>
+<div id="pcCommentBox" class="comment-box comment-box-new2 login-comment-box-new" style="display:none">
+    <div class="has-comment" style="display:block">
+      <div class="one-line-box">
+        <div class="has-comment-tit go-side-comment">
+          <span class="count">1</span>&nbsp;条评论
+        </div>
+        <div class="has-comment-con comment-operate-item"></div>
+        <a class="has-comment-bt-right go-side-comment focus">写评论</a>
+      </div>
+    </div>
+</div>              <div class="recommend-box insert-baidu-box recommend-box-style ">
+                <div class="recommend-item-box no-index" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/gaoyang5015/article/details/127689996"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-127689996-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"2","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/gaoyang5015/article/details/127689996"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/gaoyang5015/article/details/127689996" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-127689996-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"2","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/gaoyang5015/article/details/127689996"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-127689996-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-127689996-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">EEG<em>情感</em>分析<em>综述</em>（一）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/gaoyang5015" target="_blank"><span class="blog-title">gaoyang5015的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-04</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					302
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/gaoyang5015/article/details/127689996" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2-127689996-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"2","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/gaoyang5015/article/details/127689996"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-127689996-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-127689996-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">EEG信号<em>情感</em>分析</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_35739967/86305689"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-3-86305689-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"3","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_35739967/86305689"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_35739967/86305689" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-3-86305689-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"3","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_35739967/86305689"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-3-86305689-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-3-86305689-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">2021-基于生理信号的<em>情感</em><em>计算</em>研究<em>综述</em>_权学良2</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-03</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_35739967/86305689" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-3-86305689-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"3","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_35739967/86305689"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-3-86305689-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-3-86305689-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">望. 文章组织结构如下: 第 1 节介绍<em>情感</em><em>计算</em>的相关基础理论;第 2 节介绍<em>情感</em><em>计算</em>中常用的生理信号类型;第 3 节介绍基于生理信号的<em>情感</em><em>计算</em>流程;第 4 节</div>
+			</a>
+		</div>
+	</div>
+</div>
+		<dl id="recommend-item-box-tow" class="recommend-item-box type_blog clearfix">
+			
+		</dl>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_39840515/11580763"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-4-11580763-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"4","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_39840515/11580763"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_39840515/11580763" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-4-11580763-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"4","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_39840515/11580763"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-4-11580763-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-4-11580763-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">论文研究-<em>情感</em><em>计算</em>研究<em>综述</em> .pdf</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-19</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_39840515/11580763" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~Rate-4-11580763-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"4","strategy":"2~default~CTRLIST~Rate","dest":"https://download.csdn.net/download/weixin_39840515/11580763"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-4-11580763-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7ERate-4-11580763-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>情感</em><em>计算</em>研究<em>综述</em>，王坤侠，陶勇森，<em>情感</em>建模方法的研究是<em>情感</em><em>计算</em>研究领域中的热点问题之一。对<em>情感</em>建模方法研究现状进行了归纳和总结，从<em>情感</em>理论研究起源、<em>情感</em>的</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_61203518/article/details/125325674"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-125325674-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_61203518/article/details/125325674"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_61203518/article/details/125325674" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-125325674-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_61203518/article/details/125325674"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-125325674-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-125325674-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">【无标题】</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_61203518" target="_blank"><span class="blog-title">qq_61203518的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-17</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					683
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_61203518/article/details/125325674" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-125325674-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_61203518/article/details/125325674"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-125325674-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-125325674-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>情感</em>分析</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/coder_Gray/article/details/90074624"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-90074624-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/coder_Gray/article/details/90074624"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/coder_Gray/article/details/90074624" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-90074624-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/coder_Gray/article/details/90074624"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-90074624-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-90074624-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">NLP&mdash;&mdash;&mdash;&mdash;目标<em>情感</em>分析(TSA任务)</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/coder_Gray" target="_blank"><span class="blog-title">coder_Gray的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-15</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3247
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/coder_Gray/article/details/90074624" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-90074624-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/coder_Gray/article/details/90074624"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-90074624-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-90074624-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">TSA任务介绍
+
+目标<em>情感</em>分析任务（Targeted Sentiment Analysis, TSA）旨在提取目标实体并对其进行<em>情感</em>分类。因此可以理解为命名实体识别（NER）和<em>情感</em>分析（SA）两个任务的联合学习。例如，给出一句&ldquo;ESPN调查显示迈克尔乔丹是最伟大的篮球运动员&rdquo;，检测目标是ESPN和迈克尔乔丹，他们的情绪类别分别为中性和正面。最近的一些工作试图联合学习这两项任务，看成序列标注问题，其...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_40671063/article/details/123407571"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-123407571-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_40671063/article/details/123407571"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_40671063/article/details/123407571" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-123407571-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_40671063/article/details/123407571"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-123407571-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-123407571-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>情感</em><em>计算</em> - <em>情感</em><em>模型</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_40671063" target="_blank"><span class="blog-title">qq_40671063的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1440
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_40671063/article/details/123407571" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-123407571-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_40671063/article/details/123407571"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-123407571-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-123407571-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>情感</em><em>计算</em>-<em>情感</em><em>模型</em></div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/EtchTime/article/details/124755542"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-124755542-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/EtchTime/article/details/124755542"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/EtchTime/article/details/124755542" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-124755542-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/EtchTime/article/details/124755542"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-124755542-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-124755542-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>情感</em><em>计算</em>介绍</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/EtchTime" target="_blank"><span class="blog-title">EtchTime的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-13</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1839
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/EtchTime/article/details/124755542" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-124755542-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/EtchTime/article/details/124755542"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-124755542-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-124755542-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">本文是本人对<em>情感</em><em>计算</em>论文
+
+A Systematic Review on Affective Computing: Emotion Models, Databases, and Recent Advances
+
+进行研读后进行汇报的汇报文档，以及PPT的截图，供各位参考
+
+2
+
+这里是我今天汇报的目录，主要分为以下几块，简介，背景，<em>情感</em><em>模型</em>，数据库，单形态<em>情感</em>识别，多形态<em>情感</em>分析，最后还有一个总结。
+
+
+
+
+
+3
+
+进入正题，首先我们要了解<em>情感</em><em>计算</em>是个什么，
+
+<em>情感</em><em>计算</em>最早起源于美国MIT 媒体实验室皮卡.</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/youngair/article/details/78013352"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-9-78013352-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"9","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/youngair/article/details/78013352"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/youngair/article/details/78013352" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-9-78013352-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"9","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/youngair/article/details/78013352"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-78013352-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-78013352-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">两个基于神经网络的<em>情感</em>分析<em>模型</em></div>
+					<div class="tag">热门推荐</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/youngair" target="_blank"><span class="blog-title">youngair的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-17</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/youngair/article/details/78013352" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-9-78013352-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"9","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/youngair/article/details/78013352"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-78013352-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-9-78013352-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>情感</em>分析，也称倾向性分析，即对一个主观的文本分析判断说话者的<em>情感</em>色彩或者褒贬态度。传统的方法一般有基于<em>情感</em>词典（构建<em>情感</em>词典后统计文本极性词进行判断）和基于机器学习（使用词袋<em>模型</em>对词语向量化后利用机器学习方法训练分类器），但结果往往差强人意。本周阅读的两篇论文都是基于神经网络对文本进行<em>情感</em>分析，一篇是针对句子级别的文本，另一篇是针对篇章级别的文本。下面进行简单介绍。Deep Convoluti</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/waterydd/9977208"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-10-9977208-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"10","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/waterydd/9977208"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/waterydd/9977208" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-10-9977208-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"10","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/waterydd/9977208"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-10-9977208-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-10-9977208-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">深度学习的发展<em>综述</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">09-13</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/waterydd/9977208" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-10-9977208-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"10","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/waterydd/9977208"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-10-9977208-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-10-9977208-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">深度学习的发展<em>综述</em>，度学习在<em>计算</em>机、教育等学科领域是一个值得研究的热点话题。为更好地了解&ldquo;深度学习&rdquo;的研究现状和发展趋势，跟踪其研究前沿，本研究利用ci眭妇ceⅢ工具，采用引文分析法，对2010&mdash;2016年间发表的深度学习研究相关文献，
+进行了时间、核心文献、研究热点等可视化分析。本文分别梳理和分析了学习模式、认知性存在、学习策略、同伴互助教学等10个聚类结果中研究文献代表作的相关论点。得出结论与启示：在后期研究中，需要深入学习者认知过程，关注<em>情感</em>积淀；提高教师信息能力，发挥主导作用；优化内容设计，改进学习方法；构建学习环境，完善评价体系，以促进深度学习的有效发展。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_35755562/86286787"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-11-86286787-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"11","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/weixin_35755562/86286787"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_35755562/86286787" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-11-86286787-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"11","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/weixin_35755562/86286787"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-11-86286787-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-11-86286787-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">基于姿态的<em>情感</em><em>计算</em><em>综述</em>_付心仪1</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-03</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_35755562/86286787" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~CTRLIST~default-11-86286787-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"11","strategy":"2~default~CTRLIST~default","dest":"https://download.csdn.net/download/weixin_35755562/86286787"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-11-86286787-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7ECTRLIST%7Edefault-11-86286787-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">摘要:<em>情感</em><em>计算</em>的理论与算法研究是近年来人机交互领域的热点话题.当前,常见的<em>情感</em><em>计算</em>集中在基于面部表情、语音、文本、人体姿态等方向, 既有单一模态的算法, 又有多</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_35794072/86285981"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-86285981-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_35794072/86285981"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_35794072/86285981" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-86285981-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_35794072/86285981"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-86285981-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-86285981-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">基于多模态信息的<em>情感</em><em>计算</em><em>综述</em>_彭小江1</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-03</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_35794072/86285981" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-12-86285981-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"12","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_35794072/86285981"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-86285981-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-12-86285981-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">摘要：<em>情感</em><em>计算</em>是<em>计算</em>机视觉和<em>人工智能</em>领域重要方向，在服务机器人、法政、娱乐等方面有较大应用价值。人类<em>情感</em>的外在表露和内在生物信息是<em>情感</em><em>计算</em>重要依据。该文分别<em>综述</em></div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_57147647/87488112"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-87488112-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_57147647/87488112"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_57147647/87488112" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-87488112-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_57147647/87488112"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-87488112-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-87488112-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">基于生理信号的<em>情感</em><em>计算</em>研究<em>综述</em>.docx</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">02-23</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_57147647/87488112" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-13-87488112-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"13","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_57147647/87488112"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-87488112-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-13-87488112-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">基于生理信号的<em>情感</em><em>计算</em>研究<em>综述</em>.docx</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_38689477/18880559"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-18880559-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38689477/18880559"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_38689477/18880559" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-18880559-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38689477/18880559"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-18880559-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-18880559-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>综述</em>：<em>情感</em>分析和观点挖掘-研究论文</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">05-19</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_38689477/18880559" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-14-18880559-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"14","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38689477/18880559"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-18880559-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-14-18880559-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">社交媒体沿其用户的快速增长引发了对<em>情感</em>分析的需求，这种<em>情感</em>分析也称为观点挖掘或<em>情感</em>抽象，其目的是提取，...其目的是<em>计算</em>数据的极性并将其分类为肯定，否定或中性。 本文介绍了情绪分析中的技术和方法及其挑战。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/zhsmkxy/article/details/119346410"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-15-119346410-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"15","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/zhsmkxy/article/details/119346410"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/zhsmkxy/article/details/119346410" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-15-119346410-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"15","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/zhsmkxy/article/details/119346410"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-15-119346410-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-15-119346410-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">情绪识别论文阅读</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/zhsmkxy" target="_blank"><span class="blog-title">丶夜未央丶的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-15</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					652
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/zhsmkxy/article/details/119346410" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-15-119346410-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"15","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/zhsmkxy/article/details/119346410"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-15-119346410-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-15-119346410-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">情绪识别论文</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_32550525/article/details/116091463"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-16-116091463-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"16","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/weixin_32550525/article/details/116091463"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_32550525/article/details/116091463" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-16-116091463-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"16","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/weixin_32550525/article/details/116091463"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-16-116091463-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-16-116091463-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">matlab 音乐分类 thayer,基于DBN的多模态音乐<em>情感</em>分类研究</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_32550525" target="_blank"><span class="blog-title">weixin_32550525的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-22</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					873
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_32550525/article/details/116091463" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-16-116091463-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"16","strategy":"2~default~CTRLIST~Rate","dest":"https://blog.csdn.net/weixin_32550525/article/details/116091463"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-16-116091463-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-16-116091463-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">0引言数字音乐随着现代网络的发展规模不断得以提升,因此音乐检索技术(MIR)受到了更为广泛的关注,而音乐<em>情感</em>分类作为音乐诸多相关领域中最为基本的问题,其研究受到了越来越高的重视。针对音乐<em>情感</em>分类而言,最为普遍的一种方法即对从音乐中提取出来的声学特征进行分析后得出<em>情感</em>的分类结果。但是通常仅使用该单一模态所达到的分类效果并不尽人意。歌词是音乐歌曲的文字表达部分,其中包含了歌曲作者的<em>情感</em>寄托,所以对歌词...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-103616778-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-103616778-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-103616778-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-103616778-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">【华为云技术分享】人脸<em>情感</em><em>模型</em>简介</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/devcloud" target="_blank"><span class="blog-title">华为云官方博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-19</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2038
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-103616778-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://huaweicloud.csdn.net/62a2b80f78f1bc4bebc13692.html"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-103616778-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-103616778-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">人脸<em>情感</em><em>模型</em>主要分为三类：
+
+
+	<em>离散</em>分类<em>模型</em>categorical model
+
+	二十世纪，Ekman和Friesen定义了6种基本<em>情感</em>，生气anger, 厌恶disgust, 害怕fear, 开心happiness, 伤心sadness, 和 惊奇surprise [1]。之后轻蔑contempt被加入到基本<em>情感</em>中[2]。
+	
+	
+	连续维度<em>模型</em> dimensional model
+	如...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/hpulfc/article/details/80283035"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-80283035-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/hpulfc/article/details/80283035"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/hpulfc/article/details/80283035" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-80283035-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/hpulfc/article/details/80283035"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-80283035-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-80283035-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">基于DNN的<em>情感</em>分析<em>模型</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/hpulfc" target="_blank"><span class="blog-title">这里是标题</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-11</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1231
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/hpulfc/article/details/80283035" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-80283035-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/hpulfc/article/details/80283035"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-80283035-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-80283035-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">这里的寻来数据来自：train_url = &#39;https://storage.googleapis.com/mledu-datasets/sparse-data-embedding/train.tfrecord&#39;
+train_path = tf.keras.utils.get_file(train_url.split(&#39;/&#39;)[-1], train_url)
+test_url = &#39;https:...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_chatgpt clearfix" data-url="https://wenku.csdn.net/answer/7yv4smac9k"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-19-7yv4smac9k-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"19","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/7yv4smac9k"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://wenku.csdn.net/answer/7yv4smac9k" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-19-7yv4smac9k-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"19","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/7yv4smac9k"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-19-7yv4smac9k-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-19-7yv4smac9k-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+					<div class="left ellipsis-online ellipsis-online-1">pythonLDA<em>情感</em><em>模型</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-25</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://wenku.csdn.net/answer/7yv4smac9k" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-19-7yv4smac9k-blog-130849281.235^v38^pc_relevant_default_base3\",\"dist_request_id\":\"1700037000095_20491\"}","dist_request_id":"1700037000095_20491","ab_strategy":"increase_t0_anti_vip","index":"19","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/7yv4smac9k"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-19-7yv4smac9k-blog-130849281.235%5Ev38%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-19-7yv4smac9k-blog-130849281.235%5Ev38%5Epc_relevant_default_base3'>
+				<div class="desc ellipsis-online ellipsis-online-1">PythonLDA<em>情感</em><em>模型</em>是一个基于Python语言开发的<em>情感</em>分析<em>模型</em>。该<em>模型</em>通过使用LDA（Latent Dirichlet Allocation）算法，将文本数据进行主题建模和<em>情感</em>分析。
+
+在这个<em>模型</em>中，数据预处理是一个重要的步骤。首先，需要对评论数据进行分词处理，将评论文本按照单词进行切分。然后，可以利用<em>情感</em>词典对每个单词进行<em>情感</em>值的<em>计算</em>，从而获得每个评论文本的<em>情感</em>倾向。
+
+接下来，利用LDA算法对评论数据进行主题建模。LDA算法是一种无监督学习方法，用于发现隐藏在文本数据中的主题结构。通过LDA，可以将评论文本划分为不同的主题，每个主题包含一组相关的单词。
+
+最后，将<em>情感</em>分析和主题建模结合起来，可以得到一个综合的<em>情感</em><em>模型</em>。这个<em>模型</em>可以用于分析评论数据中的<em>情感</em>倾向，并将其归纳为不同的主题。通过这个<em>模型</em>，可以更加全面地理解用户对于某个产品或者事件的态度和观点。
+
+总的来说，PythonLDA<em>情感</em><em>模型</em>是一个综合运用了LDA算法和<em>情感</em>分析的<em>模型</em>，用于分析评论文本的<em>情感</em>倾向和主题结构。这个<em>模型</em>可以帮助我们深入理解用户的观点，并从中提取有价值的信息。&lt;span class=&quot;em&quot;&gt;1&lt;/span&gt;
+#### 引用[.reference_title]
+-  *1* [【项目实战】Python实现基于LDA主题<em>模型</em>进行电商产品评论数据<em>情感</em>分析](https://download.csdn.net/download/weixin_42163563/80675031)[target=&quot;_blank&quot; data-report-click={&quot;spm&quot;:&quot;1018.2226.3001.9630&quot;,&quot;extra&quot;:{&quot;utm_source&quot;:&quot;vip_chatgpt_common_search_pc_result&quot;,&quot;utm_medium&quot;:&quot;distribute.pc_search_result.none-task-cask-2~all~insert_cask~default-1-null.142^v93^chatsearchT3_2&quot;}}] [.reference_item style=&quot;max-width: 100%&quot;]
+[ .reference_list ]</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<div id="recommendNps" class="recommend-nps-box common-nps-box">
+  <h3 class="aside-title">“相关推荐”对你有帮助么？</h3>
+  <div class="aside-content">
+      <ul class="newnps-list">
+          <li class="newnps-item" data-type="非常没帮助">
+              <div class="newnps-img-box">
+                  <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel1.png" alt="">
+                  <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey1.png" alt="">
+              </div>
+              <div class="newnps-text">非常没帮助</div>
+          </li>
+          <li class="newnps-item" data-type="没帮助">
+              <div class="newnps-img-box">
+                  <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel2.png" alt="">
+                  <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey2.png" alt="">
+              </div>
+              <div class="newnps-text">没帮助</div>
+          </li>
+          <li class="newnps-item" data-type="一般">
+              <div class="newnps-img-box">
+                  <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel3.png" alt="">
+                  <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey3.png" alt="">
+              </div>
+              <div class="newnps-text">一般</div>
+          </li>
+          <li class="newnps-item" data-type="有帮助">
+              <div class="newnps-img-box">
+                  <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel4.png" alt="">
+                  <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey4.png" alt="">
+              </div>
+              <div class="newnps-text">有帮助</div>
+          </li>
+          <li class="newnps-item" data-type="非常有帮助">
+              <div class="newnps-img-box">
+                  <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel5.png" alt="">
+                  <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey5.png" alt="">
+              </div>
+              <div class="newnps-text">非常有帮助</div>
+          </li>
+      </ul>
+      <div class="newnps-form-box">
+      <div class="newnps-form">
+          <input type="text" placeholder="请输入建议或反馈后点击提交" class="newnps-input">
+          <span class="newnps-btn">提交</span>
+      </div>
+      </div>
+  </div>
+</div><div class="blog-footer-bottom" style="margin-top:10px;"></div>
+<script src="https://g.csdnimg.cn/common/csdn-footer/csdn-footer.js" data-isfootertrack="false" type="text/javascript"></script>
+<script type="text/javascript">
+    window.csdn.csdnFooter.options = {
+        el: '.blog-footer-bottom',
+        type: 2
+    }
+</script>          </main>
+<aside class="blog_container_aside">
+<div id="asideProfile" class="aside-box">
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/ChristopherI" target="_blank" data-report-click='{"mod":"popu_379","spm":"1001.2101.3001.4121","dest":"https://blog.csdn.net/ChristopherI","ab":"new"}'>
+                <img src="https://profile-avatar.csdnimg.cn/3b9c93f5e94146b183627c1eb60d470e_christopheri.jpg!1" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex flex-column profile-intro-name-box">
+            <div class="profile-intro-name-boxTop">
+                <a href="https://blog.csdn.net/ChristopherI" target="_blank" class="" id="uid" title="ChrisyyGuan" data-report-click='{"mod":"popu_379","spm":"1001.2101.3001.4122","dest":"https://blog.csdn.net/ChristopherI","ab":"new"}'>
+                    <span class="name " username="ChristopherI">ChrisyyGuan</span>
+                </a>
+                <span>
+                </span>
+                <span class="flag expert-blog">
+                <span class="bubble">CSDN认证博客专家</span>
+                </span>
+                <span class="flag company-blog">
+                <span class="bubble">CSDN认证企业博客</span>
+                </span>
+            </div>
+            <div class="profile-intro-name-boxFooter">
+                <span class="personal-home-page personal-home-years" title="已加入 CSDN 4年">码龄4年</span>
+                    <span class="personal-home-page">
+                    <a class="personal-home-certification" href="https://i.csdn.net/#/uc/profile?utm_source=14998968" target="_blank" title="暂无认证">
+                    <img src="https://csdnimg.cn/identity/nocErtification.png" alt="">
+                    暂无认证
+                    </a>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="11">
+            <a href="https://blog.csdn.net/ChristopherI" data-report-click='{"mod":"1598321000_001","spm":"1001.2101.3001.4310"}' data-report-query="t=1">  
+                <dt><span class="count">11</span></dt>
+                <dd class="font">原创</dd>
+            </a>
+        </dl>
+        <dl class="text-center" data-report-click='{"mod":"1598321000_002","spm":"1001.2101.3001.4311"}' title="1438306">
+            <a href="https://blog.csdn.net/rank/list/weekly" target="_blank">
+                <dt><span class="count">143万+</span></dt>
+                <dd class="font">周排名</dd>
+            </a>
+        </dl>
+        <dl class="text-center" title="104658">
+            <a href="https://blog.csdn.net/rank/list/total" data-report-click='{"mod":"1598321000_003","spm":"1001.2101.3001.4312"}' target="_blank">
+                <dt><span class="count">10万+</span></dt>
+                <dd class="font">总排名</dd>
+            </a>
+        </dl>
+        <dl class="text-center" style="min-width:58px" title="5090">  
+            <dt><span class="count">5090</span></dt>
+            <dd>访问</dd>
+        </dl>
+        <dl class="text-center" title="2级,点击查看等级说明">
+            <dt><a href="https://blog.csdn.net/blogdevteam/article/details/103478461" target="_blank">
+                <img class="level" src="https://csdnimg.cn/identity/blog2.png">
+            </a>
+            </dt>
+            <dd>等级</dd>
+        </dl>
+    </div>
+    <div class="item-rank"></div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="142">
+            <dt><span class="count">142</span></dt>
+            <dd>积分</dd>
+        </dl>
+         <dl class="text-center" id="fanBox" title="0">
+            <dt><span class="count" id="fan">0</span></dt>
+            <dd>粉丝</dd>
+        </dl>
+        <dl class="text-center" title="8">
+            <dt><span class="count">8</span></dt>
+            <dd>获赞</dd>
+        </dl>
+        <dl class="text-center" title="6">
+            <dt><span class="count">6</span></dt>
+            <dd>评论</dd>
+        </dl>
+        <dl class="text-center" title="19">
+            <dt><span class="count">19</span></dt>
+            <dd>收藏</dd>
+        </dl>
+    </div>
+    <div class="aside-box-footer" data-report-view='{"spm":"3001.4296"}'>
+        <div class="badge-box d-flex">
+            <div class="badge d-flex">
+                <div class="icon-badge" title="新秀勋章">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/xinxiu@240.png" alt="新秀勋章">
+                    </div>
+                </div>
+                <div class="icon-badge" title="勤写标兵">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/f10c883cfd674a3e9217683e8cd55511.png" alt="勤写标兵">
+                    </div>
+                </div>
+                <div class="icon-badge" title="创作能手">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/qixiebiaobing4@240.png" alt="创作能手">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-intro-name-boxOpration">
+        <div class="opt-letter-watch-box">
+        <a rel="nofollow" class="bt-button personal-letter" href="https://im.csdn.net/chat/ChristopherI" target="_blank" rel="noopener">私信</a>
+        </div>
+        <div class="opt-letter-watch-box"> 
+            <a class="personal-watch bt-button" id="btnAttent" >关注</a>  
+        </div>
+    </div>
+</div>
+<a id="remuneration" data-report-click='{"spm":"1001.2101.3001.9809"}' rel="nofollow" href="" class="remuneration-box">
+  <img src="" alt="">
+</a>
+  <div id="asideWriteGuide" class="aside-box side-write-guide-box type-1" data-report-view='{"spm":"3001.9841"}'>
+    <div class="content-box">
+      <a rel="nofollow" href="https://mp.csdn.net/edit" target="_blank" class="btn-go-write" data-report-query="spm=3001.9841" data-report-click='{"spm":"3001.9841"}'>
+        <img src="https://img-home.csdnimg.cn/images/20231011045000.png" alt="写文章">
+      </a>
+    </div>
+  </div>
+<div id="asideSearchArticle" class="aside-box">
+	<div class="aside-content search-comter">
+    <div class="aside-search aside-search-blog">         
+        <input type="text" class="input-serch-blog" name="" autocomplete="off" value="" id="search-blog-words" placeholder="搜博主文章">
+        <a class="btn-search-blog" data-report-click='{"spm":"1001.2101.3001.9182"}'>
+                    <img src="//csdnimg.cn/cdn/content-toolbar/csdn-sou.png?v=1587021042">
+        </a>
+    </div>
+    </div>
+</div>
+
+
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/ChristopherI/article/details/130116732" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/ChristopherI/article/details/130116732","ab":"new"}'>
+				java读取txt文件内容
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">2937</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/ChristopherI/article/details/130093438" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/ChristopherI/article/details/130093438","ab":"new"}'>
+				使用environment.yml配置环境的小问题
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">619</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/ChristopherI/article/details/130849281" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/ChristopherI/article/details/130849281","ab":"new"}'>
+				情感计算综述
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">504</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/ChristopherI/article/details/130057507" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/ChristopherI/article/details/130057507","ab":"new"}'>
+				java包中类无法访问默认包中的类
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">376</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/ChristopherI/article/details/132665921" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/ChristopherI/article/details/132665921","ab":"new"}'>
+				Java中List的toString方法
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">159</span>
+                </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideCategory" class="aside-box ">
+    <h3 class="aside-title">分类专栏</h3>
+    <div class="aside-content">
+        <ul>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12303702.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12303702.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        Leetcode
+                    </span>
+                </a>
+                <span class="special-column-num">2篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12283538.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12283538.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756738.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        JAVA
+                    </span>
+                </a>
+                <span class="special-column-num">3篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12361454.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12361454.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        情感计算
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12285818.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12285818.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756738.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        文件读取
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12283539.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12283539.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756724.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        switch语句
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ChristopherI/article/details/130849281#comments_28605458" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130849281#comments_28605458","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130849281#comments_28605458","ab":"new"}'>情感计算综述</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/community_717" class="user-name" target="_blank">CSDN-Ada助手: </a>
+                    <span class="code-comments">恭喜您撰写了第10篇博客！标题&ldquo;情感计算综述&rdquo;引人入胜，让我对这个话题产生了浓厚的兴趣。您在这个领域的专业知识和热情真是令人敬佩。不仅仅是综述了情感计算的概念，您还能够深入地探讨其背后的原理和应用，让读者受益匪浅。
+
+接下来，我期待您能进一步扩展这个话题的内容。或许您可以分享一些实际案例，让读者更好地理解情感计算在现实生活中的应用价值。或者，您可以探讨一些与情感计算相关的前沿技术和研究领域，让我们对未来的发展趋势有更深入的了解。无论您选择的创作方向如何，我坚信您将继续以谦虚的态度探索并分享有关情感计算的知识，为读者带来更多的启发和思考。期待您的下一篇博客！</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ChristopherI/article/details/132665921#comments_28528468" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/132665921#comments_28528468","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/132665921#comments_28528468","ab":"new"}'>Java中List的toString方法</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/community_717" class="user-name" target="_blank">CSDN-Ada助手: </a>
+                    <span class="code-comments">恭喜您撰写了第13篇博客！标题中的&ldquo;Java中List的toString方法&rdquo;听起来非常有趣。您对Java中List的toString方法进行了深入探讨，这对于那些想要更好地理解该方法的读者来说一定非常有帮助。
+
+在下一步的创作中，或许您可以考虑进一步探索List的其他方法，比如add、remove、get等等。这些方法在Java开发中非常常见，对于初学者来说也是十分重要的。通过分享您的经验和见解，您可以帮助更多的读者更好地掌握这些方法的使用技巧。
+
+继续努力写作，并且保持谦虚的态度，您的博客一定会吸引更多的读者！期待您未来更多精彩的文章！</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ChristopherI/article/details/132473612#comments_28346701" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/132473612#comments_28346701","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/132473612#comments_28346701","ab":"new"}'>LiKou(力扣)每日一题1267.统计参与通信的服务器</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/community_717" class="user-name" target="_blank">CSDN-Ada助手: </a>
+                    <span class="code-comments">恭喜您写了第11篇博客！标题《LiKou(力扣)每日一题1267.统计参与通信的服务器》引人入胜，让我对这个题目产生了浓厚的兴趣。您持续创作博客的努力令人钦佩，同时也为读者们提供了宝贵的学习资源。
+
+在下一步的创作中，或许可以考虑分享一些解题思路或者提供一些实用的技巧，帮助读者更好地应对这类问题。当然，这只是我个人的建议，因为我深知您在算法领域的造诣远超出我的认知。
+
+期待您未来更多精彩的博文，谢谢您不断分享知识！</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ChristopherI/article/details/130081104#comments_27280139" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130081104#comments_27280139","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130081104#comments_27280139","ab":"new"}'>LeetCode每日一题1041困于环中的机器人</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/community_717" class="user-name" target="_blank">CSDN-Ada助手: </a>
+                    <span class="code-comments">恭喜您又写了一篇有趣的博客，题目看起来很有挑战性。接下来，建议您可以多尝试一些不同难度的题目，或者分享一些解题技巧和经验，这样可以吸引更多的读者来关注您的博客。期待您的下一篇作品！
+
+CSDN 正在通过评论红包奖励优秀博客，请看红包流：https://bbs.csdn.net/?type=4&amp;header=0&amp;utm_source=csdn_ai_ada_blog_reply3，我们会奖励持续创作和学习的博主，请看：https://bbs.csdn.net/forums/csdnnews?typeId=116148&amp;utm_source=csdn_ai_ada_blog_reply3</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ChristopherI/article/details/130093438#comments_27279073" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130093438#comments_27279073","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/ChristopherI/article/details/130093438#comments_27279073","ab":"new"}'>使用environment.yml配置环境的小问题</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/community_717" class="user-name" target="_blank">CSDN-Ada助手: </a>
+                    <span class="code-comments">恭喜您写了第四篇博客！使用environment.yml配置环境确实是一个很有用的技巧，感谢您分享您的经验。接下来，建议您可以深入探究一些更高级的环境配置技巧，比如使用conda构建虚拟环境等等。期待您的更多精彩文章！
+
+CSDN 会根据你创作的前四篇博客的质量，给予优秀的博主博客红包奖励。请关注 https://bbs.csdn.net/forums/csdnnews?typeId=116148&amp;utm_source=csdn_ai_ada_blog_reply4 看奖励名单。</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideNewNps" class="aside-box common-nps-box">
+    <h3 class="aside-title">您愿意向朋友推荐“博客详情页”吗？</h3>
+    <div class="aside-content">
+        <ul class="newnps-list">
+            <li class="newnps-item" data-type="强烈不推荐">
+                <div class="newnps-img-box">
+                    <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel1.png" alt="">
+                    <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey1.png" alt="">
+                </div>
+                <div class="newnps-text">强烈不推荐</div>
+            </li>
+            <li class="newnps-item" data-type="不推荐">
+                <div class="newnps-img-box">
+                    <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel2.png" alt="">
+                    <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey2.png" alt="">
+                </div>
+                <div class="newnps-text">不推荐</div>
+            </li>
+            <li class="newnps-item" data-type="一般般">
+                <div class="newnps-img-box">
+                    <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel3.png" alt="">
+                    <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey3.png" alt="">
+                </div>
+                <div class="newnps-text">一般般</div>
+            </li>
+            <li class="newnps-item" data-type="推荐">
+                <div class="newnps-img-box">
+                    <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel4.png" alt="">
+                    <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey4.png" alt="">
+                </div>
+                <div class="newnps-text">推荐</div>
+            </li>
+            <li class="newnps-item" data-type="强烈推荐">
+                <div class="newnps-img-box">
+                    <img class="newnps-img active" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeel5.png" alt="">
+                    <img class="newnps-img default" src="https://csdnimg.cn/release/blogv2/dist/pc/img/npsFeelGrey5.png" alt="">
+                </div>
+                <div class="newnps-text">强烈推荐</div>
+            </li>
+        </ul>
+        <div class="newnps-form-box">
+        <div class="newnps-form">
+            <input type="text" placeholder="请输入建议或反馈后点击提交" class="newnps-input">
+            <span class="newnps-btn">提交</span>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="asideArchive" class="aside-box" style="display:block!important; width:300px;">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix">
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/ChristopherI/article/details/132665921" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/ChristopherI/article/details/132665921","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/ChristopherI/article/details/132665921","ab":"new"}'>Java中List的toString方法</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/ChristopherI/article/details/132520460" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/ChristopherI/article/details/132520460","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/ChristopherI/article/details/132520460","ab":"new"}'>JAVA中Comparator如何判断升降序（LeetCode56）</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/ChristopherI/article/details/132473612" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/ChristopherI/article/details/132473612","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/ChristopherI/article/details/132473612","ab":"new"}'>LiKou(力扣)每日一题1267.统计参与通信的服务器</a>
+            </li>
+        </ul>
+        <div class="archive-bar"></div>
+        <div class="archive-box">
+                <div class="archive-list-item"><a href="https://blog.csdn.net/ChristopherI?type=blog&amp;year=2023&amp;month=09" target="_blank" data-report-click='{"mod":"popu_538","spm":"1001.2101.3001.4138","ab":"new","dest":"https://blog.csdn.net/ChristopherI?type=blog&amp;year=2023&amp;month=09"}'><span class="year">2023年</span><span class="num">12篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/ChristopherI?type=blog&amp;year=2022&amp;month=10" target="_blank" data-report-click='{"mod":"popu_538","spm":"1001.2101.3001.4138","ab":"new","dest":"https://blog.csdn.net/ChristopherI?type=blog&amp;year=2022&amp;month=10"}'><span class="year">2022年</span><span class="num">1篇</span></a></div>
+        </div>
+    </div>
+</div>
+	<div id="footerRightAds" class="isShowFooterAds">
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57"><!-- PC-博客详情页左侧视窗2 -->
+<div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:0px;margin-bottom:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style>
+<script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=57&adId=1043605&adBlockFlag=0&a=1043605&c=0&k=情感计算综述&spm=1001.2101.3001.5001&articleId=130849281&d=1&t=3&u=c89705dc5d31491dbed3be80c51d5b9c" style="display: block;width: 0px;height: 0px;"></div>
+		</div>
+	</div>
+    <!-- 详情页显示目录 -->
+<!--文章目录-->
+<div id="asidedirectory" class="aside-box">
+    <div class='groupfile' id="directory">
+        <h3 class="aside-title">目录</h3>
+        <div class="align-items-stretch group_item">
+            <div class="pos-box">
+            <div class="scroll-box">
+                <div class="toc-box"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</aside>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).parents("p.text-center").remove();
+	})
+</script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-tooltip/2.7/user-tooltip.js"></script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-medal/2.0.0/user-medal.js"></script>        </div>
+<div class="recommend-right align-items-stretch clearfix" id="rightAside" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right" >
+                                <div class="programmer1Box">
+                        <div id="kp_box_530" data-pid="530"><!-- PC-博客详情页右上视窗 -->
+<div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:0px;margin-bottom:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=530&adId=1043604&adBlockFlag=0&a=1043604&c=0&k=情感计算综述&spm=1001.2101.3001.4647&articleId=130849281&d=1&t=3&u=1deb4b01c0804cb08a50a0b2ef34f6a8" style="display: block;width: 0px;height: 0px;"></div>
+                    </div>
+            <div class='flex-column aside-box groupfile' id="groupfile">
+                <div class="groupfile-div">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+                <div id="recommendAdBox">
+                    <div id="kp_box_479" data-pid="479"><div class="_nwikfgpvhh"></div>
+    <script type="text/javascript">
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u6940829",
+            container: "_nwikfgpvhh",
+            async: true
+        });
+    </script>
+    <!-- 多条广告如下脚本只需引入一次 -->
+    <script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+    </script><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=479&adId=1043312&adBlockFlag=0&a=1043312&c=0&k=情感计算综述&spm=1001.2101.3001.4834&articleId=130849281&d=1&t=3&u=d2cf5773301f44a4bac2bc5497ce2205" style="display: block;width: 0px;height: 0px;"></div>
+                </div>
+            <div class='aside-box kind_person d-flex flex-column'>
+                    <h3 class="aside-title">分类专栏</h3>
+                    <div class="align-items-stretch kindof_item" id="kind_person_column">
+                        <div class="aside-content">
+                            <ul>
+                                <li>
+                                    <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12303702.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12303702.html","ab":"new"}'>
+                                        <div class="special-column-bar "></div>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="">
+                                            Leetcode
+                                        </span>
+                                    </a>
+                                    <span class="special-column-num">2篇</span>
+                                </li>
+                                <li>
+                                    <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12283538.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12283538.html","ab":"new"}'>
+                                        <div class="special-column-bar "></div>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756738.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="">
+                                            JAVA
+                                        </span>
+                                    </a>
+                                    <span class="special-column-num">3篇</span>
+                                </li>
+                                <li>
+                                    <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12361454.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12361454.html","ab":"new"}'>
+                                        <div class="special-column-bar "></div>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="">
+                                            情感计算
+                                        </span>
+                                    </a>
+                                    <span class="special-column-num">1篇</span>
+                                </li>
+                                <li>
+                                    <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12285818.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12285818.html","ab":"new"}'>
+                                        <div class="special-column-bar "></div>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756738.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="">
+                                            文件读取
+                                        </span>
+                                    </a>
+                                    <span class="special-column-num">1篇</span>
+                                </li>
+                                <li>
+                                    <a class="clearfix special-column-name"  href="https://blog.csdn.net/christopheri/category_12283539.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/christopheri/category_12283539.html","ab":"new"}'>
+                                        <div class="special-column-bar "></div>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756724.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="">
+                                            switch语句
+                                        </span>
+                                    </a>
+                                    <span class="special-column-num">1篇</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right-concision" >
+            <div class='flex-column aside-box groupfile' id="groupfileConcision">
+                <div class="groupfile-div1">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+      </div>
+      <div class="mask-dark"></div>
+      <div class="skin-boxshadow"></div>
+      <div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+	<div class="comment-side-tit">
+		<div class="comment-side-tit-count">评论&nbsp;<span class="count">1</span></div>
+	<img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"></div>
+	<div id="pcCommentSideBox" class="comment-box comment-box-new2 " style="display:block">
+		<div class="comment-edit-box d-flex">
+			<div class="user-img">
+				<a href="https://blog.csdn.net/bluelaserpointer" target="_blank">
+					<img src="https://profile-avatar.csdnimg.cn/default.jpg!1">
+				</a>
+			</div>
+			<form id="commentform">
+				<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="欢迎高质量的评论，低质的评论会被折叠" maxlength="1000"></textarea>
+				<div class="comment-reward-box" style="background-image: url('https://img-home.csdnimg.cn/images/20230131025301.png');">
+          <a class="btn-remove-reward"></a>
+          <div class="form-reward-box">
+            <div class="info">
+              成就一亿技术人!
+            </div>
+            <div class="price-info">
+              拼手气红包<span class="price">6.0元</span>
+            </div>
+          </div>
+        </div>
+        <div class="comment-operate-box">
+					<div class="comment-operate-l">
+						<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					</div>
+					<div class="comment-operate-c">
+						&nbsp;
+					</div>
+					<div class="comment-operate-r">
+            <div class="comment-operate-item comment-reward">
+							<img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentReward.png" alt="红包">
+							<span class="comment-operate-tip">添加红包</span>
+						</div>
+						<div class="comment-operate-item comment-emoticon">
+							<img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentEmotionIcon.png" alt="表情包">
+							<span class="comment-operate-tip">插入表情</span>
+							<div class="comment-emoticon-box comment-operate-isshow">
+								<div class="comment-emoticon-img-box"></div>
+							</div>
+						</div>
+						<div class="comment-operate-item comment-code">
+							<img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentCodeIcon.png" alt="表情包">
+							<span class="comment-operate-tip">代码片</span>
+							<div class="comment-code-box comment-operate-isshow">
+								<ul id="commentCode">
+									<li><a data-code="html">HTML/XML</a></li>
+									<li><a data-code="objc">objective-c</a></li>
+									<li><a data-code="ruby">Ruby</a></li>
+									<li><a data-code="php">PHP</a></li>
+									<li><a data-code="csharp">C</a></li>
+									<li><a data-code="cpp">C++</a></li>
+									<li><a data-code="javascript">JavaScript</a></li>
+									<li><a data-code="python">Python</a></li>
+									<li><a data-code="java">Java</a></li>
+									<li><a data-code="css">CSS</a></li>
+									<li><a data-code="sql">SQL</a></li>
+									<li><a data-code="plain">其它</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="comment-operate-item">
+							<input type="hidden" id="comment_replyId" name="comment_replyId">
+							<input type="hidden" id="article_id" name="article_id" value="130849281">
+							<input type="hidden" id="comment_userId" name="comment_userId" value="">
+							<input type="hidden" id="commentId" name="commentId" value="">
+							<a data-report-click='{"mod":"1582594662_003","spm":"1001.2101.3001.4227","ab":"new"}'>
+							<input type="submit" class="btn-comment btn-comment-input" value="评论">
+							</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="comment-list-container">
+			<div class="comment-list-box comment-operate-item">
+			</div>
+			<div id="lookGoodComment" class="look-good-comment side-look-comment">
+				<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+			</div>
+			<div id="lookFlodComment" class="look-flod-comment">
+					<span class="count"></span>&nbsp;条评论被折叠&nbsp;<a class="look-more-flodcomment">查看</a>
+			</div>
+			<div class="opt-box text-center">
+				<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+			</div>
+		</div>
+	</div>
+	<div id="pcFlodCommentSideBox" class="pc-flodcomment-sidebox">
+		<div class="comment-fold-tit"><span id="lookUnFlodComment" class="back"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png" alt=""></span>被折叠的&nbsp;<span class="count"></span>&nbsp;条评论
+		 <a href="https://blogdev.blog.csdn.net/article/details/122245662" class="tip" target="_blank">为什么被折叠?</a>
+		 <a href="https://bbs.csdn.net/forums/FreeZone" class="park" target="_blank">
+		 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png">到【灌水乐园】发言</a>                                
+		</div>
+		<div class="comment-fold-content"></div>
+		<div id="lookBadComment" class="look-bad-comment side-look-comment">
+			<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+		</div>
+	</div>
+</div>
+<div class="comment-rewarddialog-box">
+  <div class="form-box">
+    <div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+    </div>
+    <form id="commentRewardForm">
+      <div class="ipt-box">
+        <label for="txtName">祝福语</label>
+        <div class="ipt-btn-box">
+          <input type="text" name="name" id="txtName" autocomplete="off" maxlength="50">
+          <a class="btn-ipt btn-random"></a>
+        </div>
+        <p class="notice">请填写红包祝福语或标题</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtSendAmount">红包数量</label>
+        <div class="ipt-txt-box">
+          <input type="text" name="sendAmount" maxlength="4" id="txtSendAmount" placeholder="请填写红包数量(最小10个)" autocomplete="off">
+          <span class="after-txt">个</span>
+        </div>
+        <p class="notice">红包个数最小为10个</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtMoney">红包总金额</label>
+        <div class="ipt-txt-box error">
+          <input type="text" name="money" maxlength="5" id="txtMoney" placeholder="请填写总金额(最低5元)" autocomplete="off">
+          <span class="after-txt">元</span>
+        </div>
+        <p class="notice">红包金额最低5元</p>
+      </div>
+      <div class="balance-info-box">
+        <label>余额支付</label>
+        <div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a href="https://i.csdn.net/#/wallet/balance/recharge" class="link-charge" target="_blank">前往充值 ></a>
+        </div>
+      </div>
+      <div class="opt-box">
+        <div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+        <button type="button" class="ml-auto btn-cancel">取消</button>
+        <button type="button" class="ml8 btn-submit" disabled="true">确定</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="rr-guide-box">
+  <div class="rr-first-box">
+    <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward02.png" alt="">
+    <button class="btn-guide-known next">下一步</button>
+  </div>
+  <div class="rr-second-box">
+    <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward03.png" alt="">
+    <button class="btn-guide-known known">知道了</button>
+  </div>
+</div>
+</div>
+
+<div class="redEnvolope" id="redEnvolope">
+  <div class="env-box">
+    <div class="env-container">
+      <div class="pre-open" id="preOpen">
+        <div class="top">
+          <header>
+            <img class="clearTpaErr" :src="redpacketAuthor.avatar" alt="" />
+            <div class="author">成就一亿技术人!</div>
+          </header>
+          <div class="bot-icon"></div>
+        </div>
+        <footer>
+          <div class="red-openbtn open-start"></div>
+          <div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+          </div>
+        </footer>
+      </div>
+      <div class="opened" id="opened">
+        <div class="bot-icon">
+          <header>
+            <a class="creatorUrl" href="" target="_blank">
+              <img class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2" alt="" />
+            </a>
+            <div class="author">
+              <div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+          </header>
+        </div>
+        <div class="receive-box">
+          <header></header>
+          <div class="receive-list">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="close-btn"></div>
+  </div>
+</div>
+<div id="rewardNew" class="reward-popupbox-new">
+	<p class="rewad-title">打赏作者<span class="reward-close"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"></span></p>
+	<dl class="profile-box">
+		<dd>
+		<a href="https://blog.csdn.net/ChristopherI" data-report-click='{"mod":"popu_379","dest":"https://blog.csdn.net/ChristopherI","ab":"new"}'>
+			<img src="https://profile-avatar.csdnimg.cn/3b9c93f5e94146b183627c1eb60d470e_christopheri.jpg!1" class="avatar_pic">
+		</a>
+		</dd>
+		<dt>
+			<p class="blog-name">ChrisyyGuan</p>
+			<p class="blog-discript">你的鼓励将是我创作的最大动力</p>
+		</dt>
+	</dl>
+	<div class="reward-box-new">
+			<div class="reward-content"><div class="reward-right"></div></div>
+	</div>
+	<div class="money-box">
+    <span class="choose-money choosed" data-id="1">¥1</span>
+    <span class="choose-money " data-id="2">¥2</span>
+    <span class="choose-money " data-id="4">¥4</span>
+    <span class="choose-money " data-id="6">¥6</span>
+    <span class="choose-money " data-id="10">¥10</span>
+    <span class="choose-money " data-id="20">¥20</span>
+	</div>
+	<div class="sure-box">
+		<div class="sure-box-money">
+			<div class="code-box">
+				<div class="code-num-box">
+					<span class="code-name">扫码支付：</span><span class="code-num">¥1</span>
+				</div>
+				<div class="code-img-box">
+					<div class="renovate">
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png">
+					<span>获取中</span>
+					</div>
+				</div>
+				<div class="code-pay-box">
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/newWeiXin.png" alt="">
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/newZhiFuBao.png" alt="">
+					<span>扫码支付</span>
+				</div>
+			</div>
+		</div>
+		<div class="sure-box-blance">
+			<p class="tip">您的余额不足，请更换扫码支付或<a target="_blank" data-report-click='{"mod":"1597646289_003","spm":"1001.2101.3001.4302"}' href="https://i.csdn.net/#/wallet/balance/recharge?utm_source=RewardVip" class="go-invest">充值</a></p>
+			<p class="is-have-money"><a class="reward-sure">打赏作者</a></p>
+		</div>
+	</div>
+</div>
+      
+      <div class="pay-code">
+      <div class="pay-money">实付<span class="pay-money-span" data-nowprice='' data-oldprice=''>元</span></div>
+      <div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+      <div class="content-code">
+        <div id="payCode" data-id="">
+          <div class="renovate">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png">
+            <span>点击重新获取</span>
+          </div>
+        </div>
+        <div class="pay-style"><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"></span><span class="text">扫码支付</span></div>
+      </div>
+      <div class="bt-close">
+        <svg t="1567152543821" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12">
+          <defs>
+            <style type="text/css"></style>
+          </defs>
+          <path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+        </svg>
+      </div>
+      <div class="pay-balance">
+        <input type="radio" class="pay-code-radio" data-type="details">
+        <span class="span">钱包余额</span>
+          <span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+          <div class="pay-code-tile">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png" alt="">
+            <div class="pay-code-content">
+              <div class="span">
+                <p class="title">抵扣说明：</p>
+                <p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a>
+    </div>
+    <div style="display:none;">
+      <img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+    </div>
+    <div class="keyword-dec-box" id="keywordDecBox"></div>
+  </body>
+    <!-- 富文本柱状图  -->
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/chart.css" />
+    <script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/lib/chart.min.js"></script>
+    <script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/widget2chart.js"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/axios-83fa28cedf.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-8defd55d6e.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-be82269d23.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/edit_copy_code-2d3931414f.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+  <script src="https://g.csdnimg.cn/user-accusation/1.0.6/user-accusation.js" type="text/javascript"></script>
+  <script>
+    // 全局声明
+    if (window.csdn === undefined) {
+      window.csdn = {};
+    }
+    window.csdn.sideToolbar = {
+      options: {
+        report: {
+          isShow: true,
+        },
+        qr: {
+          isShow: false,
+        },
+        guide: {
+          isShow: true
+        }
+      }
+    }
+    $(function() {
+      $(document).on('click', "a.option-box[data-type='report']", function() {
+        window.csdn.loginBox.key({
+          biz: 'blog',
+          subBiz: 'other_service',
+          cb: function() {
+            window.csdn.feedback({
+              "type": 'blog',
+              "rtype": 'article',
+              "rid": articleId,
+              "reportedName": username,
+              "submitOptions": {
+                "title": articleTitle,
+                "contentUrl": articleDetailUrl
+              },
+              "callback": function() {
+                showToast({
+                  text: "感谢您的举报，我们会尽快审核！",
+                  bottom: '10%',
+                  zindex: 9000,
+                  speed: 500,
+                  time: 1500
+                })
+              }
+            })
+          }
+        })
+      });
+    })
+  </script>
+    <script src="https://g.csdnimg.cn/baidu-search/1.0.12/baidu-search.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/download/old_static/js/qrcode.js"></script>
+  <script src="https://g.csdnimg.cn/lib/qrcode/1.0.0/qrcode.min.js"></script>
+  <script src="https://g.csdnimg.cn/user-ordercart/3.0.1/user-ordercart.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/user-ordertip/5.0.1/user-ordertip.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/4.0.3/order-payment.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/common-a425354f6a.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/detail-1723acfd02.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/column-fe4f666d72.min.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/side-toolbar/3.4/side-toolbar.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/copyright/1.0.4/copyright.js" type="text/javascript"></script>
+  <script>
+    $(".MathJax").remove();
+    if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+      $('div.markdown_views')[0].className = 'markdown_views';
+    }
+  </script>
+  <script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      "HTML-CSS": {
+        linebreaks: { automatic: true, width: "94%container" },
+        imageFont: null
+      },
+      tex2jax: {
+      preview: "none",
+      ignoreClass:"title-article"
+      },
+      mml2jax: {
+      preview: 'none'
+      }
+    });
+  </script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script></html>
